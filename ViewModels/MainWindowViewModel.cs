@@ -20,6 +20,9 @@ namespace JuanLog.ViewModels
         UserControl registrationPage;
         UserControl homePage;
         UserControl addExercisePage;
+        UserControl importDataPage;
+        UserControl profilePage;
+        UserControl progressPage;
 
         [ObservableProperty]
         UserControl _currentControl;
@@ -31,6 +34,10 @@ namespace JuanLog.ViewModels
             registrationPage = new RegistrationView();
             addExercisePage = new AddExerciseView();
             homePage = new HomepageView();
+            importDataPage = new ImportDataView();
+            profilePage = new ProfileView();
+            progressPage = new ProgressView();
+
 
             _currentControl = loginPage;
 
@@ -51,6 +58,31 @@ namespace JuanLog.ViewModels
                 Debug.WriteLine("SWITCHIIING HOME!");
                 CurrentControl = homePage;
             });
+
+            WeakReferenceMessenger.Default.Register<ShowAddExerciseMessage>(this, (r, m) =>
+            {
+                Debug.WriteLine("SWITCHIIING ADD EXERCISES!");
+                CurrentControl = addExercisePage;
+            });
+
+            WeakReferenceMessenger.Default.Register<ShowImportMessage>(this, (r, m) =>
+            {
+                Debug.WriteLine("SWITCHIIING IMPORT!");
+                CurrentControl = importDataPage;
+            });
+
+            WeakReferenceMessenger.Default.Register<ShowProfileMessage>(this, (r, m) =>
+            {
+                Debug.WriteLine("SWITCHIIING PROFILE!");
+                CurrentControl = profilePage;
+            });
+
+            WeakReferenceMessenger.Default.Register<ShowProgressMessage>(this, (r, m) =>
+            {
+                Debug.WriteLine("SWITCHIIING IMPORT!");
+                CurrentControl = progressPage;
+            });
+
 
             WeakReferenceMessenger.Default.Send(new ShowLoginViewMessage());
 

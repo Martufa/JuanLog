@@ -45,6 +45,9 @@ namespace JuanLog.ViewModels
 
 
             // pokud se shoduje
+            // zapiš ho jako aktivního uživatele - ostatní modely ho potřebují (progress, add exercise, import, profile)
+
+            // a skoč na homepage
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage());
         }
 
