@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,17 +8,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JuanLog.ViewModels;
 
-namespace JuanLog.Views
+namespace JuanLog
 {
     /// <summary>
-    /// Interaction logic for AddExerciseView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class AddExerciseView : UserControl
+    public partial class MainWindow : Window
     {
-        public AddExerciseView()
+        public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
     }
 }

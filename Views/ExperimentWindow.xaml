@@ -1,0 +1,28 @@
+﻿<Window x:Class="JuanLog.Views.ExperimentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JuanLog.Views"
+        mc:Ignorable="d"
+        Title="ExperimentWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF154852" Offset="0.997"/>
+                <GradientStop Color="#FF9DCFD8" Offset="0"/>
+                <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <TextBlock HorizontalAlignment="Center" Height="97" Margin="0,99,0,0" TextWrapping="Wrap" Text="JuanLog" VerticalAlignment="Top" Width="356" FontSize="72" FontFamily="Matura MT Script Capitals" TextDecorations="Underline" FontWeight="Bold"/>
+        <PasswordBox HorizontalAlignment="Left" Height="7" Margin="305,315,0,0" VerticalAlignment="Top" Width="45"/>
+        <TextBlock HorizontalAlignment="Left" Height="44" Margin="400,256,0,0" TextWrapping="Wrap" Text="{Binding Username}" VerticalAlignment="Top" Width="165"/>
+        <Button Content="Buttonista" HorizontalAlignment="Left" Margin="91,278,0,0" VerticalAlignment="Top" Command="{Binding SetUsernameCommand, Mode=OneWay}"/>
+        <Button Content="Zobraz uživatele" HorizontalAlignment="Left" Margin="191,341,0,0" VerticalAlignment="Top" Command="{Binding GetJuanLogUsersCommand, Mode=OneWay}"/>
+
+        <DataGrid HorizontalAlignment="Left" Height="97" Margin="547,254,0,83" ItemsSource="{Binding DisplayUser}" AutoGenerateColumns="True" Width="142">
+
+        </DataGrid>
+    </Grid>
+</Window>

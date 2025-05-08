@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using JuanLog.ViewModels;
 
 namespace JuanLog.Views
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class Page1 : Page
+    public partial class LoginView : UserControl
     {
-        public Page1()
+        public LoginView()
         {
             InitializeComponent();
+            DataContext = new LoginViewModel();
+        }
+
+        private void LogInToVM(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Sending login data from View to VM");
+            var vm = (LoginViewModel)this.DataContext;
+            vm.LogIn(UsernameBox.Text, PasswordBox.Password);
         }
     }
 }

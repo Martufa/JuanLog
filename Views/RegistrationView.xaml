@@ -1,10 +1,10 @@
-﻿<UserControl x:Class="JuanLog.Views.LoginView"
+﻿<UserControl x:Class="JuanLog.Views.RegistrationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JuanLog.Views"
-             xmlns:viewmodels="clr-namespace:JuanLog.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
+             xmlns:viewmodels="clr-namespace:JuanLog.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:RegistrationViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -16,13 +16,10 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TextBlock Name="UsernameBox" HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Top" Width="236" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
 
-        <TextBox HorizontalAlignment="Center" Height="19" Margin="0,217,0,0" TextWrapping="Wrap" Text="Juan" VerticalAlignment="Top" Width="200"/>
+        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Registrace" VerticalAlignment="Top" Width="236" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        <TextBox Name="UsernameBox" HorizontalAlignment="Center" Height="19" Margin="0,217,0,0" TextWrapping="Wrap" Text="Uživatelské jméno" VerticalAlignment="Top" Width="200"/>
         <PasswordBox Name="PasswordBox" HorizontalAlignment="Center" Height="19" Margin="0,273,0,0" VerticalAlignment="Top" Width="200" Password=""/>
-        <Button Content="Přihlásit" HorizontalAlignment="Left" Margin="402,335,0,0" VerticalAlignment="Top" Click="LogInToVM" Height="20" Width="116" />
-        <Button Content="Nemáš účet? Zaregistruj se!" HorizontalAlignment="Left" Height="20" Margin="230,335,0,0" VerticalAlignment="Top" Width="167" Command="{Binding ToRegistrationCommandCommand, Mode=OneWay}" />
-
-
+        <Button Content="Přihlásit" HorizontalAlignment="Left" Margin="300,330,0,0" VerticalAlignment="Top" Command="{Binding ToLoginCommandCommand, Mode=OneWay}"/>
     </Grid>
 </UserControl>
