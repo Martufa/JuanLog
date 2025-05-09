@@ -19,14 +19,17 @@ namespace JuanLog.Models
         {
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
+            Debug.WriteLine("Anyway, connection established");
         }
 
         public User? CheckUserPassword(string user, string password)
         {
             Debug.WriteLine("Entered pwd checker");
-            // using var db = new JuanLogDBContext();
+            using var db = new JuanLogDBContext();
 
-            List<User> matchingUsers = Users.Where(u => u.Name == user).ToList();
+            Debug.WriteLine(user);
+            Debug.WriteLine(user == null);
+            List<User> matchingUsers = db.Users.Where(u => u.Name == user).ToList();
             
             if (matchingUsers.Count == 0) { Debug.WriteLine("Ended with no user ://"); return null; }
 
@@ -45,7 +48,7 @@ namespace JuanLog.Models
 
             // HASH THE CLAIMED PASSWORD WITH SALT
             var hashMaker = new Rfc2898DeriveBytes(password, salt, 100000, HashAlgorithmName.SHA256);
-            byte[] hash = hashMaker.GetBytes(32);
+            byte[] hash = hashMaker.GetBytes(16);
 
             Debug.WriteLine("compare hash made");
             byte[] combinedBytes = new byte[32];
@@ -58,6 +61,8 @@ namespace JuanLog.Models
             if (hashedPassword != actualHashedPassword)
             {
                 Debug.WriteLine("Wrong password");
+                Debug.WriteLine(hashedPassword);
+                Debug.WriteLine(actualHashedPassword);
                 return null;
             }
 

@@ -13,6 +13,8 @@ CREATE TABLE [dbo].Users(
 )
 GO
 
+INSERT INTO [Users] VALUES ('Juan', 3, 'OyugfiY7LDdYSNFkQTJqwgCJ4ZmfkzL2jRZhk6i13QI=');
+
 CREATE TABLE [dbo].ExerciseCategories(
 	[CategoryId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](50),

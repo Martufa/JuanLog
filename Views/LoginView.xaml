@@ -16,9 +16,9 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TextBlock Name="UsernameBox" HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Top" Width="236" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Top" Width="236" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
 
-        <TextBox HorizontalAlignment="Center" Height="19" Margin="0,217,0,0" TextWrapping="Wrap" Text="Juan" VerticalAlignment="Top" Width="200"/>
+        <TextBox Name="UsernameBox" HorizontalAlignment="Center" Height="19" Margin="0,217,0,0" TextWrapping="Wrap" Text="Juan" VerticalAlignment="Top" Width="200"/>
         <PasswordBox Name="PasswordBox" HorizontalAlignment="Center" Height="19" Margin="0,273,0,0" VerticalAlignment="Top" Width="200" Password=""/>
         <Button Content="Přihlásit" HorizontalAlignment="Left" Margin="402,335,0,0" VerticalAlignment="Top" Click="LogInToVM" Height="20" Width="116" />
         <Button Content="Nemáš účet? Zaregistruj se!" HorizontalAlignment="Left" Height="20" Margin="230,335,0,0" VerticalAlignment="Top" Width="167" Command="{Binding ToRegistrationCommandCommand, Mode=OneWay}" />

@@ -35,6 +35,7 @@ namespace JuanLog.ViewModels
 
             Debug.WriteLine("DÉLKA");
             Debug.WriteLine(hashedPassword.Length);
+            Debug.WriteLine(hashedPassword);
 
             // SAVE THE USER INTO DB
             User activeUser = new User { Name = username, Permission = 1, HashedPassword = hashedPassword };
