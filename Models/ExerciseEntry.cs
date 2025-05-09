@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
 
 namespace JuanLog.Models
 {
@@ -16,6 +17,6 @@ namespace JuanLog.Models
         public int ExerciseId { get; set; }
         public DateTime When { get; set; }
         public int Weight { get; set; }
-        public int RepKey { get; set; }
+
     }
 }

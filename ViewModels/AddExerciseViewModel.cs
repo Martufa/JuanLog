@@ -16,6 +16,17 @@ namespace JuanLog.ViewModels
 
         [ObservableProperty]
         private ExerciseEntry _entry;
+
+        [ObservableProperty]
+        private List<Exercise> _exercises;
+
+        [ObservableProperty]
+        private List<int> _repetitions;
+
+        [ObservableProperty]
+        private int _weight;
+
+
         public AddExerciseViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
@@ -24,7 +35,18 @@ namespace JuanLog.ViewModels
             });
             _activeUser = new User();
             _entry = new ExerciseEntry();
+            _exercises = new List<Exercise>();
+            _repetitions = new List<int>();
+            _weight = 0;
+            updateCategories();
+            Debug.WriteLine("Aaaa,a");
         }
+
+        private async void updateCategories()
+        {
+            Exercises = await Exercise.GetAllExercises();
+        }
+
         [RelayCommand]
         public void ToHomepage()
         {
@@ -33,11 +55,47 @@ namespace JuanLog.ViewModels
         }
 
         [RelayCommand]
-        public async Task AddExerciseEntry()
+        public async Task AddExerciseEntry(Exercise selectedExercise)
         {
             var db = new JuanLogDBContext();
-            // db.ExerciseEntries.Add();
+            // zapiš entry
+            var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseId = selectedExercise.ExerciseId, Weight = Weight, When = DateTime.Now});
             await db.SaveChangesAsync();
+
+
+            // získej zpátky jeho id
+            var entryId = addedEntry.Property(x => x.EntryId).CurrentValue;
+
+            // vytvoř a zapiš do SetTables všechny repy, které Juan udělal, přiřaď jim jako EntryId to id, co jsi právě vydoloval
+            foreach (int setRepetition in Repetitions)
+            {
+                db.SetTable.Add(new Set { EntryId = entryId, Repetitions = setRepetition });
+                await db.SaveChangesAsync();
+            }
+        }
+
+        [RelayCommand]
+        public void AddSet(string repString)
+        {
+            try
+            {
+                int reps = Int32.Parse(repString);
+                Repetitions.Add(reps);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Failed to parse user input");
+            }
+            
+        }
+
+        [RelayCommand]
+        public void RemoveLastSet()
+        {
+            if (Repetitions.Count > 0)
+            {
+                Repetitions.Remove(Repetitions.Count - 1);
+            }
         }
     }
 }

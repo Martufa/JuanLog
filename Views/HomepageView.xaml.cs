@@ -6,7 +6,7 @@ namespace JuanLog.Views
     /// <summary>
     /// Interaction logic for Homepage.xaml
     /// </summary>
-    public partial class HomepageView : UserControl
+    public partial class HomepageView : System.Windows.Controls.UserControl
     {
         public HomepageView()
         {
