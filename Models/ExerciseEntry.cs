@@ -1,31 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 
 namespace JuanLog.Models
 {
-    public class ExerciseEntry
+    public partial class ExerciseEntry
     {
-        private string connectionString = @"server=(localdb)\MSSQLLocalDB; Initial Catalog=JuanLogDB; Integrated Security=true";
-        private DateTime _date;
-        private string _category;
-        private int _weight;
-        private int _reps;
-        private int _sets;
-        public ExerciseEntry(DateTime date, string category, int weight, int reps, int sets)
-        {
-            if (!ExerciseCategory.ExerciseCategories.Contains(category))
-            {
-                throw new ArgumentException("Tato kategorie neexistuje, Juane, budeš ji muset vytvořit.");
-            }
-
-            _date = date;
-            _category = category;
-            _weight = weight;
-            _reps = reps;
-            _sets = sets;
-        }
+        [Key]
+        public int EntryId { get; set; }
+        public int UserId { get; set; }
+        public int ExerciseId { get; set; }
+        public DateTime When { get; set; }
+        public int Weight { get; set; }
+        public int RepKey { get; set; }
     }
 }

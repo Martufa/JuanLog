@@ -40,11 +40,11 @@ namespace JuanLog.ViewModels
         public void LogIn(string username, string pwd)
         {
             Debug.WriteLine(pwd);
-            var passwordCheck = new JuanLogDBContext();
+            // var passwordCheck = new JuanLogDBContext();
 
             // pokud se shoduje
             // zapiš ho jako aktivního uživatele - ostatní modely ho potřebují (progress, add exercise, import, profile)
-            User? activeUser = passwordCheck.CheckUserPassword(username, pwd);
+            User? activeUser = User.CheckUserPassword(username, pwd);
             if (activeUser == null)
             {
                 Debug.WriteLine("Špatné jméno nebo heslo >.<");

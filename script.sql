@@ -43,10 +43,13 @@ INSERT INTO [Exercises] VALUES (3, 'platform pullups');
 GO
 
 CREATE TABLE [dbo].ExerciseEntries(
-	[EntryId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[EntryId] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
-	[ExerciseId] [int] NOT NULL, 
+	[ExerciseId] [int] NOT NULL,
 	[When] [Date] NOT NULL,
+	[Weight] [int],
+	CONSTRAINT [PK_ExerciseEntries] PRIMARY KEY CLUSTERED ([EntryId] ASC),
+	FOREIGN KEY ([ExerciseId]) REFERENCES Exercises([ExerciseId]),
 )
 GO
 
@@ -55,8 +58,9 @@ INSERT INTO [ExerciseEntries] VALUES (1, 2, CURRENT_TIMESTAMP);
 INSERT INTO [ExerciseEntries] VALUES (3, 3, CURRENT_TIMESTAMP);
 GO
 
-CREATE TABLE [dbo].Reps(
-	[RepId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+CREATE TABLE [dbo].SetTable(
+	[SetId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[EntryId] [int] NOT NULL,
+	[Repetitions] [int],
 	FOREIGN KEY ([EntryId]) REFERENCES ExerciseEntries([EntryId]),
 )

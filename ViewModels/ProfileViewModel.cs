@@ -23,7 +23,7 @@ namespace JuanLog.ViewModels
         // ODSTRANIT ÚČET
         public ProfileViewModel()
         {
-            WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
+            WeakReferenceMessenger.Default.Register<ShowProfileMessage>(this, (r, m) =>
             {
                 ActiveUser = m.Value;
             });

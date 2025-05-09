@@ -17,6 +17,7 @@
         </Grid.Background>
 
         <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommand}"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="176,150,0,0" TextWrapping="Wrap" Text="{Binding Entry}" VerticalAlignment="Top" Width="224"/>
 
     </Grid>
 </UserControl>
