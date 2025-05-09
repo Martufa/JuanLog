@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,13 @@ namespace JuanLog.Views
         {
             InitializeComponent();
             DataContext = new RegistrationViewModel();
+        }
+        
+        private void RegistrateToVM(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("Sending registration data from View to VM");
+            var vm = (RegistrationViewModel)this.DataContext;
+            vm.Registrate(UsernameBox.Text, PasswordBox.Password);
         }
     }
 }
