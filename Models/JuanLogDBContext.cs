@@ -18,5 +18,17 @@ namespace JuanLog.Models
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }
+
+        public async Task<User> CheckUserPassword(string user, string password)
+        {
+            using var db = new JuanLogDBContext();
+            var matchingUsers = db.Users.Where(u => u.Name == user && u.HashedPassword == password);
+            if (matchingUsers.Count() > 0)
+            {
+                return await matchingUsers.FirstAsync();
+            }
+            return null;
+
+        }
     }
 }

@@ -46,6 +46,12 @@ namespace JuanLog.ViewModels
 
             // pokud se shoduje
             // zapiš ho jako aktivního uživatele - ostatní modely ho potřebují (progress, add exercise, import, profile)
+            User activeUser = passwordCheck.CheckUserPassword(username, pwd).Result;
+            if (activeUser == null)
+            {
+                Debug.WriteLine("Špatné jméno nebo heslo >.<");
+                return;
+            } 
 
             // a skoč na homepage
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage());

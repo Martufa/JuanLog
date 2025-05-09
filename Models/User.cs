@@ -14,6 +14,7 @@ namespace JuanLog.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Permission { get; set; }
+        public string HashedPassword {  get; set; }
 
         public static string Fucker()
         {
@@ -25,12 +26,16 @@ namespace JuanLog.Models
             using var db = new JuanLogDBContext();
             return await db.Users.ToListAsync();
         }
-        public async Task AddUser()
+        public async Task AddUser(string name, int permission, string hashedPassword)
         {
             using var db = new JuanLogDBContext();
-            db.Users.Add(new User { Name = this.Name, Permission = this.Permission });
+            // db.Users.Add(new User { Name = this.Name, Permission = this.Permission });
+
+            db.Users.Add(new User { Name = name, Permission = permission, HashedPassword = hashedPassword});
             await db.SaveChangesAsync();
 
         }
+
+
     }
 }
