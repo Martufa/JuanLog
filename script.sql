@@ -8,7 +8,7 @@ CREATE TABLE [dbo].Users(
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar] (50),
 	[Permission] [int],
-	[HashedPassword] [int],
+	[HashedPassword] [varchar](44),
 	CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED ([Id] ASC)
 )
 GO

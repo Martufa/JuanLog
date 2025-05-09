@@ -41,12 +41,10 @@ namespace JuanLog.ViewModels
         {
             Debug.WriteLine(pwd);
             var passwordCheck = new JuanLogDBContext();
-            // HashCode(pwd);
-
 
             // pokud se shoduje
             // zapiš ho jako aktivního uživatele - ostatní modely ho potřebují (progress, add exercise, import, profile)
-            User activeUser = passwordCheck.CheckUserPassword(username, pwd).Result;
+            User? activeUser = passwordCheck.CheckUserPassword(username, pwd);
             if (activeUser == null)
             {
                 Debug.WriteLine("Špatné jméno nebo heslo >.<");

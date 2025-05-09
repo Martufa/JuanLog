@@ -12,7 +12,7 @@ namespace JuanLog.ViewModels
     public partial class RegistrationViewModel
     {
 
-        public void Registrate(string username, string pwd)
+        public async void Registrate(string username, string pwd)
         {
             Debug.WriteLine(pwd);
             var db = new JuanLogDBContext();
@@ -24,18 +24,22 @@ namespace JuanLog.ViewModels
             }
 
             // HASH IT
-            var hashMaker = new Rfc2898DeriveBytes(pwd, salt, 100000, HashAlgorithmName.SHA3_256);
-            byte[] hash = hashMaker.GetBytes(32);
+            var hashMaker = new Rfc2898DeriveBytes(pwd, salt, 100000, HashAlgorithmName.SHA256);
+            byte[] hash = hashMaker.GetBytes(16);
 
             // COMBINE IT AND STRINGIFY IT
-            byte[] combinedBytes = new byte[36];
+            byte[] combinedBytes = new byte[32];
             Array.Copy(salt, 0, combinedBytes, 0, 16);
-            Array.Copy(hash, 0, combinedBytes, 16, 20);
+            Array.Copy(hash, 0, combinedBytes, 16, 16);
             string hashedPassword = Convert.ToBase64String(combinedBytes);
+
+            Debug.WriteLine("DÉLKA");
+            Debug.WriteLine(hashedPassword.Length);
 
             // SAVE THE USER INTO DB
             User activeUser = new User { Name = username, Permission = 1, HashedPassword = hashedPassword };
-            db.Users.AddAsync(activeUser);
+            await db.Users.AddAsync(activeUser);
+            await db.SaveChangesAsync();
 
             Debug.WriteLine("Registration complete");
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
