@@ -7,6 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF154852" Offset="0.997"/>
+                <GradientStop Color="#FF9DCFD8" Offset="0"/>
+                <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        
+        <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
     </Grid>
 </UserControl>

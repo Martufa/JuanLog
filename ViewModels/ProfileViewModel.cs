@@ -14,20 +14,26 @@ namespace JuanLog.ViewModels
     [ObservableObject]
     partial class ProfileViewModel
     {
-        public User activeUser { get; set; }
+        [ObservableProperty]
+        private User _activeUser;
+
+        // USERNAME
+        // POČET CVIKŮ
+        // ZMĚNIT HESLO
+        // ODSTRANIT ÚČET
         public ProfileViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
             {
-                activeUser = m.Value;
+                ActiveUser = m.Value;
             });
-            activeUser = new User();
+            _activeUser = new User();
         }
 
         [RelayCommand]
         public void ToHomepageCommand()
         {
-            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
+            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(ActiveUser));
         }
     }
 }

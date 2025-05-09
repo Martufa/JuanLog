@@ -4,9 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JuanLog.Views"
+             xmlns:viewmodels="clr-namespace:JuanLog.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ProfileViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF154852" Offset="0.997"/>
+                <GradientStop Color="#FF9DCFD8" Offset="0"/>
+                <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBlock HorizontalAlignment="Left" Height="31" Margin="205,134,0,0" TextWrapping="Wrap" Text="{Binding ActiveUser.Name}" VerticalAlignment="Top" Width="245"/>
+        <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
+
     </Grid>
 </UserControl>

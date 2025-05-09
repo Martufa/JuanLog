@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JuanLog.ViewModels;
 
 namespace JuanLog.Views
 {
@@ -23,6 +24,7 @@ namespace JuanLog.Views
         public AddExerciseView()
         {
             InitializeComponent();
+            DataContext = new AddExerciseViewModel();
         }
     }
 }

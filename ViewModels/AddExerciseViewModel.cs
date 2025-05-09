@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Diagnostics;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JuanLog.Messages;
@@ -10,19 +11,21 @@ namespace JuanLog.ViewModels
     [ObservableObject]
     public partial class AddExerciseViewModel
     {
-        public User activeUser { get; set; }
+        [ObservableProperty]
+        private User _activeUser;
         public AddExerciseViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
             {
-                activeUser = m.Value;
+                ActiveUser = m.Value;
             });
-            activeUser = new User();
+            _activeUser = new User();
         }
         [RelayCommand]
-        public void ToHomepageCommand()
+        public void ToHomepage()
         {
-            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
+            Debug.WriteLine("I want to go home!");
+            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(ActiveUser));
         }
     }
 }

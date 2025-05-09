@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,17 +23,15 @@ namespace JuanLog.ViewModels
         public HomepageViewModel() {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
             {
-                _activeUser = m.Value as User;
+                ActiveUser = m.Value as User;
+                Debug.WriteLine("RECEIVED USER!" + m.Value.Name);
+                Greeter = $"Oh, můj bože, {ActiveUser.Name} je zde!\nVítej! Co si přeješ dělat?";
             });
+            Debug.WriteLine("Serring default");
             _activeUser = new User{ Name="Nikdo"};
-            _greeter = $"Ahoj {ActiveUser.Name}! Co si přeješ dělat?";
+            _greeter = $"Ahoj! {ActiveUser.Name}! Co si přeješ dělat?";
         }
 
-        [RelayCommand]
-        public void setGreeter()
-        {
-            Greeter = User.Fucker(); 
-        }
 
         [RelayCommand]
         public void ToImport()

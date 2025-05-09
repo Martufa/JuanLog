@@ -16,7 +16,7 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TextBlock HorizontalAlignment="Left" Height="23" Margin="282,88,0,0" TextWrapping="Wrap" Text="{Binding Greeter}" VerticalAlignment="Top" Width="217" FontSize="16"/>
+        <TextBlock HorizontalAlignment="Left" Height="90" Margin="274,71,0,0" TextWrapping="Wrap" Text="{Binding Greeter}" VerticalAlignment="Top" Width="365" FontSize="16"/>
         <Button Content="Importovat data ze souboru" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Height="25" Command="{Binding ToImportCommand}"/>
         <Button Content="Přidat cvičení" HorizontalAlignment="Left" Margin="33,241,0,0" VerticalAlignment="Top" Width="152" Height="25" Command="{Binding ToAddExerciseCommand}"/>
         <Button Content="Podívat se na svůj progress" HorizontalAlignment="Left" Margin="33,291,0,0" VerticalAlignment="Top" Width="152" Height="25" Command="{Binding ToProgressCommand}"/>
