@@ -6,8 +6,8 @@ JuanLog je aplikace urèená specificky pro Juanovo trackování a cvièení.
 Zatím nic
 
 ## To-Do JuanLogu
-- [ ] Juan se mùže registrovat
-- [ ] Juan se mùže/musí pøihlásit pro pøístup do aplikace
+- [x] Juan se mùže registrovat
+- [x] Juan se mùže/musí pøihlásit pro pøístup do aplikace
 - [ ] Juan mùže zapsat jednotlivá cvièení
 - [ ] Juan má k dispozici kategorie cvièení, ze kterých vybírat
 - [ ] Juan mùže zobrazit svùj postup v èase na grafu
@@ -18,3 +18,4 @@ Zatím nic
 - [ ] Juanùv streak bere v potaz dny odpoèinku a nepenalizuje za nì
 
 - [ ] Promyslet použití secure stringù pøi pøihlašování
+- [ ] Promazávat login boxy po pøihlášení XD
