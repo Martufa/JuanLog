@@ -7,16 +7,27 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JuanLog.Messages;
+using JuanLog.Models;
 
 namespace JuanLog.ViewModels
 {
     [ObservableObject]
     partial class ProfileViewModel
     {
+        public User activeUser { get; set; }
+        public ProfileViewModel()
+        {
+            WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
+            {
+                activeUser = m.Value;
+            });
+            activeUser = new User();
+        }
+
         [RelayCommand]
         public void ToHomepageCommand()
         {
-            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage());
+            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
         }
     }
 }

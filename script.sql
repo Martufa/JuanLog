@@ -13,11 +13,6 @@ CREATE TABLE [dbo].Users(
 )
 GO
 
-INSERT INTO [Users] VALUES ('Juan', 3);
-INSERT INTO [Users] VALUES ('Martufka', 3);
-INSERT INTO [Users] VALUES ('Eliška', 1);
-GO
-
 CREATE TABLE [dbo].ExerciseCategories(
 	[CategoryId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [varchar](50),

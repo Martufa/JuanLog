@@ -54,7 +54,7 @@ namespace JuanLog.ViewModels
             } 
 
             // a skoč na homepage
-            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage());
+            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
         }
 
 

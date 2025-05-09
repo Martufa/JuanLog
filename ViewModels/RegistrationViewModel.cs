@@ -34,10 +34,11 @@ namespace JuanLog.ViewModels
             string hashedPassword = Convert.ToBase64String(combinedBytes);
 
             // SAVE THE USER INTO DB
-            db.Users.AddAsync(new User { Name = username, Permission = 1, HashedPassword = hashedPassword });
+            User activeUser = new User { Name = username, Permission = 1, HashedPassword = hashedPassword };
+            db.Users.AddAsync(activeUser);
 
             Debug.WriteLine("Registration complete");
-            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage());
+            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
         }
 
 

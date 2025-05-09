@@ -14,18 +14,26 @@ namespace JuanLog.ViewModels
     [ObservableObject]
     public partial class HomepageViewModel
     {
-        public User loggedInUser { get; }
+        public User activeUser { get; set; }
+        public HomepageViewModel() {
+            WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
+            {
+                activeUser = m.Value as User;
+            });
+            activeUser = new User();
+        }
+        
 
         [RelayCommand]
         public void ToImport()
         {
-            WeakReferenceMessenger.Default.Send(new ShowImportMessage());
+            WeakReferenceMessenger.Default.Send(new ShowImportMessage(activeUser));
         }
 
         [RelayCommand]
         public void ToAddExercise()
         {
-            WeakReferenceMessenger.Default.Send(new ShowAddExerciseMessage());
+            WeakReferenceMessenger.Default.Send(new ShowAddExerciseMessage(activeUser));
         }
 
         [RelayCommand]
@@ -37,13 +45,13 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public void ToProfile()
         {
-            WeakReferenceMessenger.Default.Send(new ShowProfileMessage());
+            WeakReferenceMessenger.Default.Send(new ShowProfileMessage(activeUser));
         }
 
         [RelayCommand]
         public void ToProgress()
         {
-            WeakReferenceMessenger.Default.Send(new ShowProgressMessage());
+            WeakReferenceMessenger.Default.Send(new ShowProgressMessage(activeUser));
         }
     }
 }
