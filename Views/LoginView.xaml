@@ -14,6 +14,7 @@
                 <GradientStop Color="#FF9DCFD8" Offset="0"/>
                 <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
             </LinearGradientBrush>
+
         </Grid.Background>
 
         <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Top" Width="236" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
