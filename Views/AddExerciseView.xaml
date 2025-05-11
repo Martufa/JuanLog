@@ -16,31 +16,67 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommand}"/>
-
-        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Přidat cvičení" VerticalAlignment="Top" Width="321" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
-
-        <ComboBox HorizontalAlignment="Left" Height="34" Margin="228,225,0,0" VerticalAlignment="Top" Width="332" DisplayMemberPath="Name" SelectedItem="{Binding Exercises}" SelectedIndex="0" ItemsSource="{Binding Exercises}" />
-
-        <Label Content="Tvoje sety:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="81" Margin="53,356,0,0"/>
-
-
-
-        <Button Content="Přidat" HorizontalAlignment="Left" Margin="530,415,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.794,0.578"/>
-        <DatePicker HorizontalAlignment="Left" Height="28" Margin="53,228,0,0" VerticalAlignment="Top" Width="130"/>
-
-
-        <ListBox HorizontalAlignment="Left" Height="42" Margin="53,388,0,0" VerticalAlignment="Top" Width="242" d:ItemsSource="{Binding Repetitions}"/>
-
-        <Label Content="Přidej set:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="81" Margin="228,273,0,0"/>
-        <TextBox Name="SetRepsField" HorizontalAlignment="Left" Height="26" Margin="228,299,0,0" TextWrapping="Wrap" Text="{Binding Sets}" VerticalAlignment="Top" Width="332"/>
-        <Button Content="Přidat set" HorizontalAlignment="Left" Height="22" Margin="580,347,0,0" VerticalAlignment="Top" Width="53" RenderTransformOrigin="0.5,0.5" Command="{Binding AddSetCommand}" CommandParameter="{Binding Text, ElementName=SetRepsField}"/>
-        <Button Content="Odstranit poslední set" HorizontalAlignment="Left" Height="22" Margin="650,347,0,0" VerticalAlignment="Top" Width="124" Command="{Binding RemoveLastSetCommand}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
 
-        <Label Content="Přidaná váha:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="81" Margin="32,261,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="35,286,0,0" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Top" Width="115"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Zpět" HorizontalAlignment="Center" Height="21"  VerticalAlignment="Center" Width="93" Command="{Binding ToHomepageCommand}"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Height="60" TextWrapping="Wrap" Text="Přidat cvičení" VerticalAlignment="Top" Width="321" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
 
+        
+        
+        <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Vyber si kategorii:"/>
+        <ComboBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" DisplayMemberPath="Name" ClipToBounds="True" SelectedItem="{Binding Exercises}" SelectedIndex="0" ItemsSource="{Binding Exercises}" UseLayoutRounding="False"/>
+
+        <Label Grid.Column="1" Grid.Row="3" Content="Přidaná váha:" VerticalAlignment="Top" ClipToBounds="True"/>
+        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" ClipToBounds="True" Width="480" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Bottom" Height="21.96"/>
+
+        <Label Grid.Column="1" Grid.Row="4" Content="Tvoje sety:" ClipToBounds="True" VerticalAlignment="Top"/>
+
+
+        <ItemsControl  Grid.Column="1" Grid.Row="4" ClipToBounds="True" VerticalAlignment="Center"  ItemsSource="{Binding Repetitions, UpdateSourceTrigger=PropertyChanged}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Margin="5,0" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+
+
+
+        <Grid Grid.Column="1" Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Odstranit poslední set" HorizontalAlignment="Center" VerticalAlignment="Center" Width="124"  Height="21.96" Command="{Binding RemoveLastSetCommand}"  />
+            <TextBox Grid.Column="1" Name="SetRepsField" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="332" Height="21.96" Text="{Binding CurrentSet}"/>
+            <Button Grid.Column="2" Content="Přidat set" HorizontalAlignment="Center" Height="21.96" VerticalAlignment="Center" Width="53" Command="{Binding AddSetCommand}"/>
+
+        </Grid>
+
+        <Button Grid.Column="1" Grid.Row="6" Content="Přidat" VerticalAlignment="Center" HorizontalAlignment="Center" Width="136" Height="21.96"/>
 
     </Grid>
 </UserControl>

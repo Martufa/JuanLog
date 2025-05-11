@@ -11,6 +11,7 @@ using JuanLog.Models;
 using System.Security;
 using CommunityToolkit.Mvvm.Messaging;
 using JuanLog.Messages;
+using System.Windows;
 
 
 namespace JuanLog.ViewModels
@@ -49,9 +50,10 @@ namespace JuanLog.ViewModels
             {
                 Debug.WriteLine("Špatné jméno nebo heslo >.<");
                 return;
-            } 
+            }
 
             // a skoč na homepage
+            MessageBox.Show("OK");
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
         }
 

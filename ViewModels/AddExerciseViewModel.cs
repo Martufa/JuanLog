@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media.Media3D;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,10 +24,13 @@ namespace JuanLog.ViewModels
         private List<Exercise> _exercises;
 
         [ObservableProperty]
-        private List<int> _repetitions;
+        private ObservableCollection<int> _repetitions;
 
         [ObservableProperty]
         private int _weight;
+
+        [ObservableProperty]
+        private int _currentSet;
         public AddExerciseViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
@@ -35,8 +40,10 @@ namespace JuanLog.ViewModels
             _activeUser = new User();
             _entry = new ExerciseEntry();
             _exercises = new List<Exercise>();
-            _repetitions = new List<int>();
+            _repetitions = new ObservableCollection<int>();
             _weight = 0;
+            Repetitions.Add(3);
+            _currentSet = 0;
 
             updateExercises();
             Debug.WriteLine("Aaaa,a");
@@ -75,26 +82,18 @@ namespace JuanLog.ViewModels
         }
 
         [RelayCommand]
-        public void AddSet(string repString)
+        public void AddSet()
         {
-            try
-            {
-                int reps = Int32.Parse(repString);
-                Repetitions.Add(reps);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Failed to parse user input");
-            }
-
+            Repetitions.Add(CurrentSet);
         }
+
 
         [RelayCommand]
         public void RemoveLastSet()
         {
             if (Repetitions.Count > 0)
             {
-                Repetitions.Remove(Repetitions.Count - 1);
+                Repetitions.RemoveAt(Repetitions.Count - 1);
             }
         }
     }
