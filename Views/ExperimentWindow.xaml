@@ -24,5 +24,8 @@
         <DataGrid HorizontalAlignment="Left" Height="97" Margin="547,254,0,83" ItemsSource="{Binding DisplayUser}" AutoGenerateColumns="True" Width="142">
 
         </DataGrid>
+
+
+        
     </Grid>
 </Window>
