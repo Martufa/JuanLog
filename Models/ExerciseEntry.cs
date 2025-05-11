@@ -16,6 +16,5 @@ namespace JuanLog.Models
         public int ExerciseId { get; set; }
         public DateTime When { get; set; }
         public int Weight { get; set; }
-        public int RepKey { get; set; }
     }
 }

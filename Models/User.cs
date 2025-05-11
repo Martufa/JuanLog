@@ -18,11 +18,6 @@ namespace JuanLog.Models
         public int Permission { get; set; }
         public string HashedPassword {  get; set; }
 
-        public static string Fucker()
-        {
-            return "Certified, yassified";
-        }
-
         public async Task<List<User>> GetAllUsers()
         {
             using var db = new JuanLogDBContext();

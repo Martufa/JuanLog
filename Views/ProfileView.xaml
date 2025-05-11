@@ -15,8 +15,11 @@
                 <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <TextBlock HorizontalAlignment="Left" Height="31" Margin="205,134,0,0" TextWrapping="Wrap" Text="{Binding ActiveUser.Name}" VerticalAlignment="Top" Width="245"/>
+        
         <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
-
+        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Tvůj profil" VerticalAlignment="Top" Width="244" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        
+        
+        <TextBlock HorizontalAlignment="Left" Height="31" Margin="205,134,0,0" TextWrapping="Wrap" Text="{Binding ActiveUser.Name}" VerticalAlignment="Top" Width="245"/>
     </Grid>
 </UserControl>

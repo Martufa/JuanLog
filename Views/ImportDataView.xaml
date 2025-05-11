@@ -16,6 +16,8 @@
         </Grid.Background>
 
         <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
-
+        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Importuj data" VerticalAlignment="Top" Width="321" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        
+        
     </Grid>
 </UserControl>

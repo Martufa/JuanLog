@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using JuanLog.Models;
-using System.Windows.Controls;
+
 using System.Security;
 using CommunityToolkit.Mvvm.Messaging;
 using JuanLog.Messages;
@@ -30,7 +30,7 @@ namespace JuanLog.ViewModels
         public LoginViewModel()
         {
             User helper = new User();
-            _username = User.Fucker();
+            _username = "Nikdo";
             _displayUser = new List<User>();
             _securePwd = new SecureString();
             WeakReferenceMessenger.Default.Send(new ShowLoginViewMessage());

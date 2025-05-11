@@ -17,7 +17,30 @@
         </Grid.Background>
 
         <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommand}"/>
-        <TextBox HorizontalAlignment="Left" Height="26" Margin="176,150,0,0" TextWrapping="Wrap" Text="{Binding Entry}" VerticalAlignment="Top" Width="224"/>
+
+        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Přidat cvičení" VerticalAlignment="Top" Width="321" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+
+        <ComboBox HorizontalAlignment="Left" Height="34" Margin="228,225,0,0" VerticalAlignment="Top" Width="332" DisplayMemberPath="Name" SelectedItem="{Binding Exercises}" SelectedIndex="0" ItemsSource="{Binding Exercises}" />
+
+        <Label Content="Tvoje sety:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="81" Margin="53,356,0,0"/>
+
+
+
+        <Button Content="Přidat" HorizontalAlignment="Left" Margin="530,415,0,0" VerticalAlignment="Top" Width="136" RenderTransformOrigin="0.794,0.578"/>
+        <DatePicker HorizontalAlignment="Left" Height="28" Margin="53,228,0,0" VerticalAlignment="Top" Width="130"/>
+
+
+        <ListBox HorizontalAlignment="Left" Height="42" Margin="53,388,0,0" VerticalAlignment="Top" Width="242" d:ItemsSource="{Binding Repetitions}"/>
+
+        <Label Content="Přidej set:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="81" Margin="228,273,0,0"/>
+        <TextBox Name="SetRepsField" HorizontalAlignment="Left" Height="26" Margin="228,299,0,0" TextWrapping="Wrap" Text="{Binding Sets}" VerticalAlignment="Top" Width="332"/>
+        <Button Content="Přidat set" HorizontalAlignment="Left" Height="22" Margin="580,347,0,0" VerticalAlignment="Top" Width="53" RenderTransformOrigin="0.5,0.5" Command="{Binding AddSetCommand}" CommandParameter="{Binding Text, ElementName=SetRepsField}"/>
+        <Button Content="Odstranit poslední set" HorizontalAlignment="Left" Height="22" Margin="650,347,0,0" VerticalAlignment="Top" Width="124" Command="{Binding RemoveLastSetCommand}"/>
+
+
+        <Label Content="Přidaná váha:" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="81" Margin="32,261,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="26" Margin="35,286,0,0" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Top" Width="115"/>
+
 
     </Grid>
 </UserControl>

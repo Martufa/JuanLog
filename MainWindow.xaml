@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        xmlns:local="clr-namespace:JuanLog">
+        xmlns:local="clr-namespace:JuanLog"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
 
     <ContentControl Name="content" Content="{Binding CurrentControl}"></ContentControl>
 </Window>

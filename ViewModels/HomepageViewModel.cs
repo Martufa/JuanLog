@@ -36,13 +36,13 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public void ToImport()
         {
-            WeakReferenceMessenger.Default.Send(new ShowImportMessage(_activeUser));
+            WeakReferenceMessenger.Default.Send(new ShowImportMessage(ActiveUser));
         }
 
         [RelayCommand]
         public void ToAddExercise()
         {
-            WeakReferenceMessenger.Default.Send(new ShowAddExerciseMessage(_activeUser));
+            WeakReferenceMessenger.Default.Send(new ShowAddExerciseMessage(ActiveUser));
         }
 
         [RelayCommand]
@@ -54,13 +54,13 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public void ToProfile()
         {
-            WeakReferenceMessenger.Default.Send(new ShowProfileMessage(_activeUser));
+            WeakReferenceMessenger.Default.Send(new ShowProfileMessage(ActiveUser));
         }
 
         [RelayCommand]
         public void ToProgress()
         {
-            WeakReferenceMessenger.Default.Send(new ShowProgressMessage(_activeUser));
+            WeakReferenceMessenger.Default.Send(new ShowProgressMessage(ActiveUser));
         }
     }
 }
