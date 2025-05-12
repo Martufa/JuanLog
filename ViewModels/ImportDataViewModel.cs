@@ -39,16 +39,14 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public void OpenImportFile()
         {
-            MessageBox.Show("Yes");
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Text files (*.csv)|*.csv|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                // string fileName, public IEnumerable<Person> ReadCSV()
                 ProcessCSV(openFileDialog.FileName);
             }
 
-            MessageBox.Show("Asi ok 0.o");
+            MessageBox.Show("Import dokončen");
         }
 
         private async void ProcessCSV(string fileName)

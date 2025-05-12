@@ -62,6 +62,12 @@ namespace JuanLog.ViewModels
             }
         }
 
+        [RelayCommand]
+        public void UpdateEntryTable()
+        {
+
+        }
+
 
         [RelayCommand]
         public void ShowEntriesButton()
