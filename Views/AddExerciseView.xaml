@@ -32,18 +32,18 @@
         </Grid.RowDefinitions>
 
 
-        <Button Grid.Column="0" Grid.Row="0" Content="Zpět" HorizontalAlignment="Center" Height="21"  VerticalAlignment="Center" Width="93" Command="{Binding ToHomepageCommand}"/>
+        <Button Grid.Column="0" Grid.Row="0" Content="Zpět" HorizontalAlignment="Center" Height="21"  VerticalAlignment="Center" Width="93" Command="{Binding ToHomepageCommand}" />
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Height="60" TextWrapping="Wrap" Text="Přidat cvičení" VerticalAlignment="Top" Width="321" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
 
-        
-        
-        <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Vyber si kategorii:"/>
+
+
+        <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Vyber si kategorii:" FontSize="16"/>
         <ComboBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" DisplayMemberPath="ExerciseName" ClipToBounds="True" SelectedItem="{Binding SelectedExercise}" SelectedIndex="0" ItemsSource="{Binding Exercises}" UseLayoutRounding="False"/>
 
-        <Label Grid.Column="1" Grid.Row="3" Content="Přidaná váha:" VerticalAlignment="Top" ClipToBounds="True"/>
-        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" ClipToBounds="True" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Bottom" Height="21.96"/>
+        <Label Grid.Column="1" Grid.Row="3" Content="Přidaná váha:" VerticalAlignment="Top" ClipToBounds="True" FontSize="16"/>
+        <TextBox Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" ClipToBounds="True" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Center" Height="21.96"/>
 
-        <Label Grid.Column="1" Grid.Row="4" Content="Tvoje sety:" ClipToBounds="True" VerticalAlignment="Top"/>
+        <Label Grid.Column="1" Grid.Row="4" Content="Tvoje sety:" ClipToBounds="True" VerticalAlignment="Top" FontSize="16"/>
         <ItemsControl  Grid.Column="1" Grid.Row="4" ClipToBounds="True" VerticalAlignment="Center"  ItemsSource="{Binding Repetitions, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

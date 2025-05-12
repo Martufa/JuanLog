@@ -67,7 +67,7 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public async Task AddExerciseEntry() // Exercise selectedExercise
         {
-            MessageBox.Show("Adding to db");
+            
             var db = new JuanLogDBContext();
             // zapiš entry
             var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = SelectedExercise.ExerciseName, Weight = Weight, When = DateTime.Now });
@@ -83,6 +83,7 @@ namespace JuanLog.ViewModels
                 db.SetTable.Add(new Set { EntryId = entryId, Repetitions = setRepetition });
                 await db.SaveChangesAsync();
             }
+            MessageBox.Show("Úspěšně přidáno do databáze! ^^");
         }
 
         [RelayCommand]
