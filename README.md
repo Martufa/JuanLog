@@ -19,3 +19,4 @@ JuanLog je aplikace urèená specificky pro Juanovo trackování a cvièení.
 
 - [x] Promyslet použití secure stringù pøi pøihlašování
 - [x] Promazávat login boxy po pøihlášení XD
+- [ ] Pøekopat databázi, protože ffs XDD -> pøi importu brát jednotlivé sety spíš jako celé entry, bude se s tím líp pracovat
