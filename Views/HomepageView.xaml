@@ -16,12 +16,50 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TextBlock HorizontalAlignment="Left" Height="90" Margin="274,71,0,0" TextWrapping="Wrap" Text="{Binding Greeter}" VerticalAlignment="Top" Width="365" FontSize="16"/>
-        <Button Content="Importovat data ze souboru" HorizontalAlignment="Left" Margin="33,187,0,0" VerticalAlignment="Top" Height="25" Command="{Binding ToImportCommand}"/>
-        <Button Content="Přidat cvičení" HorizontalAlignment="Left" Margin="33,241,0,0" VerticalAlignment="Top" Width="152" Height="25" Command="{Binding ToAddExerciseCommand}"/>
-        <Button Content="Podívat se na svůj progress" HorizontalAlignment="Left" Margin="33,291,0,0" VerticalAlignment="Top" Width="152" Height="25" Command="{Binding ToProgressCommand}"/>
-        <Button Content="Můj profil" HorizontalAlignment="Left" Margin="33,341,0,0" VerticalAlignment="Top" Width="152" Height="25" Command="{Binding ToProfileCommand}"/>
-        <Button Content="Odhlásit" HorizontalAlignment="Left" Margin="33,391,0,0" VerticalAlignment="Top" Width="152" Height="25" Command="{Binding ToLoginCommand}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="97"  TextWrapping="Wrap" Text="JuanLog" VerticalAlignment="Top" Width="356" FontSize="72" FontFamily="Matura MT Script Capitals" TextDecorations="Underline" FontWeight="Bold"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="90" TextWrapping="Wrap" Text="{Binding Greeter}" VerticalAlignment="Bottom" FontSize="16"/>
+
+        <Button Content="Importovat data ze souboru" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToImportCommand}" FontSize="16" Margin="0,0,0,5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Přidat cvičení" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToAddExerciseCommand}" FontSize="16" Margin="0,0,0,5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Podívat se na svůj progress" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToProgressCommand}" FontSize="16" Margin="0,0,0,5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Můj profil" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToProfileCommand}" FontSize="16" Margin="0,0,0,5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button Content="Odhlásit" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToLoginCommand}" FontSize="16">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
 
 
 

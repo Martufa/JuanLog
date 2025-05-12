@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JuanLog.Views"
+             xmlns:viewmodels="clr-namespace:JuanLog.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:ProgressViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -21,12 +22,27 @@
         <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Tvůj progres" VerticalAlignment="Top" Width="292" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
         
         <TabControl HorizontalAlignment="Stretch"  Margin="30,130,30, 20" VerticalAlignment="Stretch">
-            <TabItem Header="TabItem">
+            <TabItem Header="Grafík">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="Pink"/>
+            <TabItem Header="Tabulka">
+
+                <DataGrid Background="Pink" ItemsSource="{Binding ExerciseEntries}" AutoGenerateColumns="False" ClipToBounds="True" IsReadOnly="True" HorizontalContentAlignment="Stretch" FontSize="14">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Cvičení"  Binding="{Binding ExerciseName}" Width="*"/>
+                        <DataGridTextColumn Header="Kdy"  Binding="{Binding When}" Width="*"/>
+                        <DataGridTextColumn Header="Váha"  Binding="{Binding Weight}" Width="*"/>
+                        <DataGridTextColumn Header="Kdo"  Binding="{Binding UserId}" Width="*"/>
+                    </DataGrid.Columns>
+
+                </DataGrid>
+                
+               
+                
             </TabItem>
+            
         </TabControl>
+
     </Grid>
 </UserControl>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -24,6 +25,7 @@ namespace JuanLog.ViewModels
             WeakReferenceMessenger.Default.Register<ShowProgressMessage>(this, (r, m) =>
             {
                 ActiveUser = m.Value;
+                updateEntries();
             });
             _activeUser = new User();
             _exerciseEntries = new List<ExerciseEntry>();
@@ -33,6 +35,12 @@ namespace JuanLog.ViewModels
         private async void updateEntries()
         {
             ExerciseEntries = await ExerciseEntry.GetAllUserEntries(ActiveUser);
+        }
+
+        [RelayCommand]
+        public void ShowEntriesButton()
+        {
+            MessageBox.Show(ActiveUser.Id.ToString());
         }
 
         [RelayCommand]
