@@ -66,7 +66,7 @@ namespace JuanLog.ViewModels
         {
             var db = new JuanLogDBContext();
             // zapiš entry
-            var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseId = selectedExercise.ExerciseId, Weight = Weight, When = DateTime.Now });
+            var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = selectedExercise.ExerciseName, Weight = Weight, When = DateTime.Now });
             await db.SaveChangesAsync();
 
 

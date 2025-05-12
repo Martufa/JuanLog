@@ -48,12 +48,11 @@ namespace JuanLog.ViewModels
             User? activeUser = User.CheckUserPassword(username, pwd);
             if (activeUser == null)
             {
-                Debug.WriteLine("Špatné jméno nebo heslo >.<");
+                MessageBox.Show("Špatné jméno nebo heslo >.<");
                 return;
             }
 
             // a skoč na homepage
-            MessageBox.Show("OK");
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
         }
 

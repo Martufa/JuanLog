@@ -30,10 +30,9 @@ INSERT INTO [ExerciseCategories] VALUES ('Bøicho');
 GO
 
 CREATE TABLE [dbo].Exercises(
-	[ExerciseId] [int] IDENTITY(1,1) NOT NULL,
 	[CategoryId] [int] NOT NULL,
-	[Name] [varchar] (100),
-	CONSTRAINT [PK_Exercises] PRIMARY KEY CLUSTERED ([ExerciseId] ASC)
+	[ExerciseName] [varchar] (100) NOT NULL,
+	CONSTRAINT [PK_Exercises] PRIMARY KEY CLUSTERED ([ExerciseName])
 )
 GO
 
@@ -45,17 +44,17 @@ GO
 CREATE TABLE [dbo].ExerciseEntries(
 	[EntryId] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
-	[ExerciseId] [int] NOT NULL,
+	[ExerciseName] [varchar] (100) NOT NULL,
 	[When] [Date] NOT NULL,
 	[Weight] [int],
 	CONSTRAINT [PK_ExerciseEntries] PRIMARY KEY CLUSTERED ([EntryId] ASC),
-	FOREIGN KEY ([ExerciseId]) REFERENCES Exercises([ExerciseId]),
+	FOREIGN KEY ([ExerciseName]) REFERENCES Exercises([ExerciseName]),
 )
 GO
 
-INSERT INTO [ExerciseEntries] VALUES (1, 1, '1900-01-01');
-INSERT INTO [ExerciseEntries] VALUES (1, 2, CURRENT_TIMESTAMP);
-INSERT INTO [ExerciseEntries] VALUES (3, 3, CURRENT_TIMESTAMP);
+INSERT INTO [ExerciseEntries] VALUES (1, 'lateral raises', '1900-01-01', 1);
+INSERT INTO [ExerciseEntries] VALUES (1, 'hanging knee ups', CURRENT_TIMESTAMP, 2);
+INSERT INTO [ExerciseEntries] VALUES (3, 'lateral raises', CURRENT_TIMESTAMP, 5);
 GO
 
 CREATE TABLE [dbo].SetTable(

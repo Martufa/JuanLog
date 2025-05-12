@@ -14,7 +14,7 @@ namespace JuanLog.Models
         [Key]
         public int EntryId { get; set; }
         public int UserId { get; set; }
-        public int ExerciseId { get; set; }
+        public string ExerciseName { get; set; }
         public DateTime When { get; set; }
         public int Weight { get; set; }
     }
