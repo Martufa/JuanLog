@@ -19,5 +19,14 @@
 
         <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
         <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Tvůj progres" VerticalAlignment="Top" Width="292" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        
+        <TabControl HorizontalAlignment="Stretch"  Margin="30,130,30, 20" VerticalAlignment="Stretch">
+            <TabItem Header="TabItem">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="TabItem">
+                <Grid Background="Pink"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

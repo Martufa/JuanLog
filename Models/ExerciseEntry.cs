@@ -20,5 +20,11 @@ namespace JuanLog.Models
         public string ExerciseName { get; set; }
         public DateTime When { get; set; }
         public int Weight { get; set; }
+
+        public static async Task<List<ExerciseEntry>> GetAllUserEntries(User user)
+        {
+            var db = new JuanLogDBContext();
+            return await db.ExerciseEntries.Where(e => e.UserId == user.Id).ToListAsync();
+        }
     }
 }

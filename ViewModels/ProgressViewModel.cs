@@ -17,7 +17,8 @@ namespace JuanLog.ViewModels
         [ObservableProperty]
         private User _activeUser;
 
-       
+        [ObservableProperty]
+        private List<ExerciseEntry> _exerciseEntries;
         public ProgressViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowProgressMessage>(this, (r, m) =>
@@ -25,6 +26,13 @@ namespace JuanLog.ViewModels
                 ActiveUser = m.Value;
             });
             _activeUser = new User();
+            _exerciseEntries = new List<ExerciseEntry>();
+            updateEntries();
+        }
+
+        private async void updateEntries()
+        {
+            ExerciseEntries = await ExerciseEntry.GetAllUserEntries(ActiveUser);
         }
 
         [RelayCommand]
