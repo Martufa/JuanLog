@@ -47,6 +47,7 @@ namespace JuanLog.ViewModels
             }
 
             MessageBox.Show("Import dokončen");
+            WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(ActiveUser));
         }
 
         private async void ProcessCSV(string fileName)
@@ -70,7 +71,7 @@ namespace JuanLog.ViewModels
                     date = DateTime.Parse(data[0]);
                 } catch
                 {
-                    MessageBox.Show("Něco z toho je špatně ve dni: " + data[0]);
+                    // MessageBox.Show("Něco z toho je špatně ve dni: " + data[0]);
                     // weight vyhodí chybu, juan ten den necvičil
                 }
                 
@@ -80,7 +81,7 @@ namespace JuanLog.ViewModels
                     string exerciseName = data[6 * i + 1];
                     if (! allExercises.Select(e => e.ExerciseName).Contains(exerciseName))
                     {
-                        var addition = new Exercise { ExerciseName = exerciseName, CategoryId = 1 };
+                        var addition = new Exercise { ExerciseName = exerciseName, CategoryId = 1};
                         db.Exercises.Add(addition);
                         await db.SaveChangesAsync();
 
@@ -99,7 +100,7 @@ namespace JuanLog.ViewModels
                             db.SetTable.Add(new Set { EntryId = entryId, Repetitions = currentReps });
                         }
                         catch {
-                            MessageBox.Show("Zapsání setu " + date + " se nepodařilo...promiň, Juane.");
+                            // MessageBox.Show("Zapsání setu " + date + " se nepodařilo...promiň, Juane.");
                         }
                     }
 

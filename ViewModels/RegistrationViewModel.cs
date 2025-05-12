@@ -16,26 +16,8 @@ namespace JuanLog.ViewModels
         {
             Debug.WriteLine(pwd);
             var db = new JuanLogDBContext();
-            // MAKE SALT
-            byte[] salt = new byte[16];
-            using (var saltMaker = RandomNumberGenerator.Create())
-            {
-                saltMaker.GetBytes(salt);
-            }
+            string hashedPassword = User.HashPassword(pwd);
 
-            // HASH IT
-            var hashMaker = new Rfc2898DeriveBytes(pwd, salt, 100000, HashAlgorithmName.SHA256);
-            byte[] hash = hashMaker.GetBytes(16);
-
-            // COMBINE IT AND STRINGIFY IT
-            byte[] combinedBytes = new byte[32];
-            Array.Copy(salt, 0, combinedBytes, 0, 16);
-            Array.Copy(hash, 0, combinedBytes, 16, 16);
-            string hashedPassword = Convert.ToBase64String(combinedBytes);
-
-            Debug.WriteLine("DÉLKA");
-            Debug.WriteLine(hashedPassword.Length);
-            Debug.WriteLine(hashedPassword);
 
             // SAVE THE USER INTO DB
             User activeUser = new User { Name = username, Permission = 1, HashedPassword = hashedPassword };

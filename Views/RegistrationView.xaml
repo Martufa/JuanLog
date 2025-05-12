@@ -34,14 +34,14 @@
 
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Registrace" VerticalAlignment="Center" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
 
-        <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Uživatelské jméno:"/>
-        <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Height="19" TextWrapping="Wrap" Text="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Uživatelské jméno:" FontSize="16"/>
+        <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Height="25" TextWrapping="Wrap" Text="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
 
-        <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Heslo:"/>
-        <PasswordBox Name="PasswordBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="19" VerticalAlignment="Center" Password="" VerticalContentAlignment="Center"/>
+        <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Heslo:" FontSize="16"/>
+        <PasswordBox Name="PasswordBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Center" Password="" VerticalContentAlignment="Center"/>
 
-        <Button Content="Registrovat"  Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Top" Click="RegistrateToVM"/>
-        <Button Grid.Column="1" Grid.Row="4" Content="Máš účet a chceš se přihlásit?" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="167" Command="{Binding ToLoginCommandCommand, Mode=OneWay}" />
+        <Button Content="Registrovat"  Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Height="25" VerticalAlignment="Top" Width="250" Click="RegistrateToVM" FontSize="16"/>
+        <Button Grid.Column="1" Grid.Row="4" Content="Máš účet a chceš se přihlásit?" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="250" FontSize="16" Command="{Binding ToLoginCommandCommand, Mode=OneWay}" />
 
     </Grid>
 </UserControl>

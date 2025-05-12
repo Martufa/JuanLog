@@ -15,11 +15,34 @@
                 <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
             </LinearGradientBrush>
         </Grid.Background>
-        
-        <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
-        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Tvůj profil" VerticalAlignment="Top" Width="244" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
-        
-        
-        <TextBlock HorizontalAlignment="Left" Height="31" Margin="205,134,0,0" TextWrapping="Wrap" Text="{Binding ActiveUser.Name}" VerticalAlignment="Top" Width="245"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="60" TextWrapping="Wrap" Text="Tvůj profil" VerticalAlignment="Center" Width="244" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+
+
+        <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding ActiveUser.Name}" VerticalAlignment="Top" Width="245"  FontSize="16"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Počet cviků v DB:" VerticalAlignment="Top" Width="245"  FontSize="16"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding NumberOfExercises}" VerticalAlignment="Top" Width="245"  FontSize="16"/>
+
+        <Button Content="Odstranit účet" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding DeleteAccountCommand}" FontSize="16" Margin="0,0,0,5">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
     </Grid>
 </UserControl>

@@ -31,6 +31,27 @@ namespace JuanLog.Models
 
         }
 
+        public static string HashPassword(string pwd)
+        {
+            // MAKE SALT
+            byte[] salt = new byte[16];
+            using (var saltMaker = RandomNumberGenerator.Create())
+            {
+                saltMaker.GetBytes(salt);
+            }
+
+            // HASH IT
+            var hashMaker = new Rfc2898DeriveBytes(pwd, salt, 100000, HashAlgorithmName.SHA256);
+            byte[] hash = hashMaker.GetBytes(16);
+
+            // COMBINE IT AND STRINGIFY IT
+            byte[] combinedBytes = new byte[32];
+            Array.Copy(salt, 0, combinedBytes, 0, 16);
+            Array.Copy(hash, 0, combinedBytes, 16, 16);
+            string hashedPassword = Convert.ToBase64String(combinedBytes);
+
+            return hashedPassword;
+        }
         public static User? CheckUserPassword(string user, string password)
         {
             Debug.WriteLine("Entered pwd checker");
