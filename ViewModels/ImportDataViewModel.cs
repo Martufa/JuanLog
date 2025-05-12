@@ -55,16 +55,40 @@ namespace JuanLog.ViewModels
         {
             string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
             var db = new JuanLogDBContext();
+            List<Exercise> allExercises = await Exercise.GetAllExercises();
 
             foreach (string line in lines)
             {
                 string[] data = line.Split(';');
-                int weight = int.Parse(data[2]);
-                DateTime date = DateTime.Parse(data[0]);
-
-                for (int i = 1; i < 6; i++)
+                if (data.Length == 1) // Juan ten den necvičil
                 {
-                    ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = data[i], Weight = weight, When = date };
+                    continue;
+                }
+                int weight = 0;
+                DateTime date = DateTime.Now;
+                try
+                {
+                    weight = int.Parse(data[2]);
+                    date = DateTime.Parse(data[0]);
+                } catch
+                {
+                    MessageBox.Show("Něco z toho je špatně ve dni: " + data[0]);
+                    // weight vyhodí chybu, juan ten den necvičil
+                }
+                
+                
+                for (int i = 0; i < 5; i++)
+                {
+                    string exerciseName = data[6 * i + 1];
+                    if (! allExercises.Select(e => e.ExerciseName).Contains(exerciseName))
+                    {
+                        var addition = new Exercise { ExerciseName = exerciseName, CategoryId = 1 };
+                        db.Exercises.Add(addition);
+                        await db.SaveChangesAsync();
+
+                        allExercises.Add(addition);
+                    }
+                    ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = exerciseName, Weight = weight, When = date };
                     var addedEntry = await db.ExerciseEntries.AddAsync(entry);
                     await db.SaveChangesAsync();
 
@@ -73,10 +97,12 @@ namespace JuanLog.ViewModels
                     {
                         try
                         {
-                            int currentReps = int.Parse(data[i + rep]);
+                            int currentReps = int.Parse(data[6 * i + 1 + rep]);
                             db.SetTable.Add(new Set { EntryId = entryId, Repetitions = currentReps });
                         }
-                        catch { }
+                        catch {
+                            MessageBox.Show("Zapsání setu " + date + " se nepodařilo...promiň, Juane.");
+                        }
                     }
 
 

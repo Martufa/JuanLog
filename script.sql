@@ -30,8 +30,8 @@ INSERT INTO [ExerciseCategories] VALUES ('Bøicho');
 GO
 
 CREATE TABLE [dbo].Exercises(
-	[CategoryId] [int] NOT NULL,
 	[ExerciseName] [varchar] (100) NOT NULL,
+	[CategoryId] [int] NOT NULL,
 	CONSTRAINT [PK_Exercises] PRIMARY KEY CLUSTERED ([ExerciseName])
 )
 GO

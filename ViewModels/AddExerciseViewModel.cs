@@ -31,6 +31,9 @@ namespace JuanLog.ViewModels
 
         [ObservableProperty]
         private int _currentSet;
+
+        [ObservableProperty]
+        private Exercise _selectedExercise;
         public AddExerciseViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
@@ -62,11 +65,12 @@ namespace JuanLog.ViewModels
         }
 
         [RelayCommand]
-        public async Task AddExerciseEntry(Exercise selectedExercise)
+        public async Task AddExerciseEntry() // Exercise selectedExercise
         {
+            MessageBox.Show("Adding to db");
             var db = new JuanLogDBContext();
             // zapiš entry
-            var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = selectedExercise.ExerciseName, Weight = Weight, When = DateTime.Now });
+            var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = SelectedExercise.ExerciseName, Weight = Weight, When = DateTime.Now });
             await db.SaveChangesAsync();
 
 

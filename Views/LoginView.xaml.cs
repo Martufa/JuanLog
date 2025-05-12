@@ -21,9 +21,11 @@ namespace JuanLog.Views
 
         private void LogInToVM(object sender, RoutedEventArgs e)
         {
+            
             Debug.WriteLine("Sending login data from View to VM");
             var vm = (LoginViewModel)this.DataContext;
             vm.LogIn(UsernameBox.Text, PasswordBox.Password);
+            PasswordBox.Password = "";
         }
     }
 }
