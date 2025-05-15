@@ -12,6 +12,8 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Collections.Concurrent;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace JuanLog.ViewModels
@@ -54,7 +56,12 @@ namespace JuanLog.ViewModels
         {
             string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
             var db = new JuanLogDBContext();
-            List<Exercise> allExercises = await Exercise.GetAllExercises();
+            // List<Exercise> allExercises = await Exercise.GetAllExercises();
+            ConcurrentDictionary<string, Exercise> allExercises = new();
+            foreach (Exercise e in await Exercise.GetAllExercises())
+            {
+                allExercises.TryAdd(e.ExerciseName, e);
+            }
 
             foreach (string line in lines)
             {
@@ -79,13 +86,23 @@ namespace JuanLog.ViewModels
                 for (int i = 0; i < 5; i++)
                 {
                     string exerciseName = data[6 * i + 1];
-                    if (! allExercises.Select(e => e.ExerciseName).Contains(exerciseName))
+                    if (! allExercises.ContainsKey(exerciseName))
                     {
-                        var addition = new Exercise { ExerciseName = exerciseName, CategoryId = 1};
-                        db.Exercises.Add(addition);
-                        await db.SaveChangesAsync();
+                        var addition = new Exercise { ExerciseName = exerciseName, CategoryId = 1 };
+                        try
+                        {   
+                            allExercises.TryAdd(exerciseName, addition);
+                            db.Exercises.Add(addition);
 
-                        allExercises.Add(addition);
+                            await db.SaveChangesAsync();
+                        } catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                        {
+                            // this exception is thrown if two same keys are being inserted by different threads:
+                            // the primary keys cannot allow for duplicities
+                            // should this error occur, we can just insert the exercise as-is, without creating new category
+                            // we just need to remove it from the log
+                            db.Exercises.Entry(addition).State = EntityState.Detached;
+                        }
                     }
                     ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = exerciseName, Weight = weight, When = date };
                     var addedEntry = await db.ExerciseEntries.AddAsync(entry);
