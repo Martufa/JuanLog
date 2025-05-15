@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using JuanLog.Messages;
 using JuanLog.Models;
+using LiveCharts.Wpf;
+using LiveCharts;
 
 namespace JuanLog.ViewModels
 {
@@ -28,6 +31,8 @@ namespace JuanLog.ViewModels
         [ObservableProperty]
         private ObservableCollection<ExerciseEntry> _selectedEntries;
 
+        [ObservableProperty]
+        private SeriesCollection _addedWeight;
         public ProgressViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowProgressMessage>(this, (r, m) =>
@@ -45,12 +50,26 @@ namespace JuanLog.ViewModels
         private async void updateEntries()
         {
             ExerciseEntries = await ExerciseEntry.GetAllUserEntries(ActiveUser);
+            updateWeightGraph();
+        }
+
+        private void updateWeightGraph()
+        {
+            LineSeries graphValues = new LineSeries();
+            graphValues.Values = new ChartValues<int> { };
+            foreach (int w in ExerciseEntries.Select(e => e.Weight))
+            {
+                graphValues.Values.Add(w);
+            }
+
+            AddedWeight = new() { graphValues };
         }
 
         private async void updateExercises()
         {
             Exercises = await Exercise.GetAllExercises();
         }
+
 
         [RelayCommand]
         public async Task Filter(string filterExerciseName)
@@ -60,7 +79,9 @@ namespace JuanLog.ViewModels
             { 
                 ExerciseEntries = ExerciseEntries.Where(e => e.ExerciseName == filterExerciseName).ToList();
             }
+            updateWeightGraph();
         }
+
 
         [RelayCommand]
         public void UpdateEntryTable()

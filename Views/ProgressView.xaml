@@ -35,15 +35,20 @@
                         <DataGridTextColumn Header="Kdy?"  Binding="{Binding When}" Width="*"/>
                         <DataGridTextColumn Header="Váha"  Binding="{Binding Weight}" Width="*"/>
                     </DataGrid.Columns>
-
                 </DataGrid>
 
 
 
             </TabItem>
-            <TabItem Header="Grafík">
+            <TabItem Header="Grafík přidané váhy">
                 <Grid Background="#FFE5E5E5">
-                    <lvc:CartesianChart Series="{Binding ExerciseEntries}"></lvc:CartesianChart>
+                    <lvc:CartesianChart Series="{Binding AddedWeight}"></lvc:CartesianChart>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Grafík repů v čase">
+                <Grid Background="#FFE5E5E5">
+                    <lvc:CartesianChart Series="{Binding AddedWeight}"></lvc:CartesianChart>
                 </Grid>
             </TabItem>
 

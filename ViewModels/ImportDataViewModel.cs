@@ -55,8 +55,9 @@ namespace JuanLog.ViewModels
 
         private async void ProcessCSV(string fileName)
         {
-            try { 
-                string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
+            // Datum;Šňůra;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;;
+            //try { 
+            string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
                 var db = new JuanLogDBContext();
 
                 ConcurrentDictionary<string, Exercise> allExercises = new();
@@ -74,17 +75,16 @@ namespace JuanLog.ViewModels
                     }
                     int weight = 0;
                     DateTime date = DateTime.Parse(data[0]);
-                    weight = int.Parse(data[2]);
+                    
                 
-
                     for (int i = 0; i < 5; i++)
                     {
-                        string exerciseName = data[6 * i + 1];
-                        if (exerciseName == "")
-                        {
-                            break;
-                        }
-                    
+                        string exerciseName = data[7 * i + 2];
+                        if (exerciseName == "") // not an exercise
+                            {
+                                break;
+                            }
+                        weight = (int) double.Parse(data[7 * i + 3]);
                         // if the exercise doesn't exist, add it
                         if (! allExercises.ContainsKey(exerciseName))
                         {
@@ -110,14 +110,14 @@ namespace JuanLog.ViewModels
                         await db.SaveChangesAsync();
 
                         var entryId = addedEntry.Property(x => x.EntryId).CurrentValue;
-                        for (int rep = 1; rep <= 5; rep++)
+                        for (int rep = 1; rep <= 4; rep++)
                         {
-                            string repString = data[6 * i + 1 + rep];
+                            string repString = data[7 * i + 3 + rep];
                             if (repString == "")
                             {
                                 break;
                             }
-                            int currentReps = (int)(float.Parse(repString, CultureInfo.InvariantCulture));
+                            int currentReps = (int)(float.Parse(repString));
                             db.SetTable.Add(new Set { EntryId = entryId, Repetitions = currentReps });
 
                         }
@@ -126,11 +126,11 @@ namespace JuanLog.ViewModels
 
                     }
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Načítání z csv souboru selhalo. Zkontroluj prosím formát souboru.");
-            }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Načítání z csv souboru selhalo. Zkontroluj prosím formát souboru.");
+            //}
         }
     }
 }
