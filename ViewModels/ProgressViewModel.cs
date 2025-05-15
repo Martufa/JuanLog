@@ -13,6 +13,7 @@ using JuanLog.Messages;
 using JuanLog.Models;
 using LiveCharts.Wpf;
 using LiveCharts;
+using LiveCharts.Defaults;
 
 namespace JuanLog.ViewModels
 {
@@ -33,18 +34,38 @@ namespace JuanLog.ViewModels
 
         [ObservableProperty]
         private SeriesCollection _addedWeight;
+
+        [ObservableProperty]
+        private List<int> _labels;
+
+        [ObservableProperty]
+        private ChartValues<HeatPoint> _streakValues;
+
+        [ObservableProperty]
+        private int _successRate = 0;
+
+        [ObservableProperty]
+        private int _failureRate = 0;
+
+        public Func<double, string> YFormatter { get; set; }
         public ProgressViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowProgressMessage>(this, (r, m) =>
             {
                 ActiveUser = m.Value;
                 updateEntries();
+                makeHeatMap();
             });
             _activeUser = new User();
             _exerciseEntries = new List<ExerciseEntry>();
             _exercises = new List<Exercise>();
+            _labels = new List<int>();
+            YFormatter = value => value.ToString("N");
+            _streakValues = new();
+
             updateEntries();
             updateExercises();
+            // makeHeatMap();
         }
 
         private async void updateEntries()
@@ -53,15 +74,64 @@ namespace JuanLog.ViewModels
             updateWeightGraph();
         }
 
+        private List<DateTime> GetDaysSince(DateTime start)
+        {
+            return Enumerable.Range(0, (DateTime.Now - start).Days + 1)
+                     .Select(offset => start.AddDays(offset))
+                     .ToList();
+        }
+        public void makeHeatMap()
+        {
+            Dictionary<DateTime, int> entriesInDays = new();
+            DateTime earliestDate = DateTime.Now;
+            foreach (ExerciseEntry e in ExerciseEntries)
+            {
+                if (DateTime.Compare(e.When, earliestDate) < 0)
+                {
+                    earliestDate = e.When;
+                }
+                if (! entriesInDays.ContainsKey(e.When))
+                {
+                    entriesInDays.Add(e.When, 0);
+                }
+                entriesInDays[e.When]++;
+            }
+
+            List<DateTime> allDays = GetDaysSince(earliestDate);
+            ChartValues<HeatPoint> allHeatPoints = new();
+            int row = allDays.Count / 14;
+            int col = 0;
+            foreach (DateTime d in allDays.AsEnumerable().Reverse())
+            {
+                if (entriesInDays.ContainsKey(d))
+                {
+                    allHeatPoints.Add(new HeatPoint() { X = col, Y = row, Weight = entriesInDays[d] });
+                    // SuccessRate++;
+                }
+                else
+                {
+                    allHeatPoints.Add(new HeatPoint() { X = col, Y = row, Weight = 0 });
+                    // FailureRate++;
+                }
+                col++;
+                if (col == 15)
+                {
+                    col = 0;
+                    row--;
+                }
+            }
+            StreakValues = allHeatPoints;
+        }
+
         private void updateWeightGraph()
         {
-            LineSeries graphValues = new LineSeries();
+            ColumnSeries graphValues = new();
             graphValues.Values = new ChartValues<int> { };
             foreach (int w in ExerciseEntries.Select(e => e.Weight))
             {
                 graphValues.Values.Add(w);
             }
-
+            Labels = Enumerable.Range(1, graphValues.Values.Count + 1).ToList();
             AddedWeight = new() { graphValues };
         }
 
@@ -80,15 +150,8 @@ namespace JuanLog.ViewModels
                 ExerciseEntries = ExerciseEntries.Where(e => e.ExerciseName == filterExerciseName).ToList();
             }
             updateWeightGraph();
+            makeHeatMap();
         }
-
-
-        [RelayCommand]
-        public void UpdateEntryTable()
-        {
-
-        }
-
 
         [RelayCommand]
         public void ShowEntriesButton()

@@ -11,21 +11,29 @@
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF154852" Offset="0.997"/>
-                <GradientStop Color="#FF9DCFD8" Offset="0"/>
-                <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
+
+                <GradientStop Color="#242526" Offset="0"/>
+                <GradientStop Color="#242526" Offset="0.8"/>
+                <GradientStop Color="#7FC21858" Offset="1"/>
+                <GradientStop Color="#242526" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
 
-        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Tvůj progres" VerticalAlignment="Top" Width="292" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
 
-        <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}"/>
-        <TextBlock HorizontalAlignment="Center" Height="60" Margin="0,70,0,0" TextWrapping="Wrap" Text="Tvůj progres" VerticalAlignment="Top" Width="292" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        <Button Content="Zpět" HorizontalAlignment="Left" Height="21" Margin="26,32,0,0" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}" BorderBrush="#FFB52395" />
+        <TextBlock HorizontalAlignment="Left" Height="60" Margin="265,62,0,0" TextWrapping="Wrap" Text="Tvůj progres" VerticalAlignment="Top" Width="292" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold" Foreground="White" />
 
-        <ComboBox VerticalAlignment="Top" Name="SelectedExerciseBox" DisplayMemberPath="ExerciseName" ClipToBounds="True" SelectedIndex="0" ItemsSource="{Binding Exercises}" UseLayoutRounding="False" Margin="30,140,200,0"/>
+        <ComboBox VerticalAlignment="Top" Name="SelectedExerciseBox" DisplayMemberPath="ExerciseName" ClipToBounds="True" SelectedIndex="0" ItemsSource="{Binding Exercises}" UseLayoutRounding="False" Margin="30,140,200,0" BorderBrush="#FFCC2CB1">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFB16868" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
         <Button Content="Filtruj" HorizontalAlignment="Right" Height="21" Margin="30,140,30,30" VerticalAlignment="Top" Width="150" Command="{Binding FilterCommand}" CommandParameter="{Binding Text, ElementName=SelectedExerciseBox}" />
 
-        
+
         <TabControl HorizontalAlignment="Stretch"  Margin="30,180,30, 20" VerticalAlignment="Stretch">
 
             <TabItem Header="Tabulka">
@@ -40,15 +48,42 @@
 
 
             </TabItem>
+
             <TabItem Header="Grafík přidané váhy">
                 <Grid Background="#FFE5E5E5">
-                    <lvc:CartesianChart Series="{Binding AddedWeight}"></lvc:CartesianChart>
+                    <lvc:CartesianChart Series="{Binding AddedWeight}">
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Kolik přidané váhy zvládneš? (kg)" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Kolik cvičení jsi vykonal?" Labels="{Binding Labels}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                    </lvc:CartesianChart>
                 </Grid>
             </TabItem>
 
-            <TabItem Header="Grafík repů v čase">
-                <Grid Background="#FFE5E5E5">
-                    <lvc:CartesianChart Series="{Binding AddedWeight}"></lvc:CartesianChart>
+            <TabItem Header="Heatmapka tvých úspěchů!">
+                <Grid>
+                    <lvc:CartesianChart>
+                        <lvc:CartesianChart.Series>
+                            <lvc:HeatSeries Values="{Binding StreakValues}" DataLabels="True">
+                                <lvc:HeatSeries.GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FFE5EC"></GradientStop>
+                                    <GradientStop Offset=".25" Color="#FFC2D1"></GradientStop>
+                                    <GradientStop Offset=".50" Color="#FFB3C6"></GradientStop>
+                                    <GradientStop Offset=".75" Color="#FF8FAB"></GradientStop>
+                                    <GradientStop Offset="1" Color="#FB6F92"></GradientStop>
+                                </lvc:HeatSeries.GradientStopCollection>
+                            </lvc:HeatSeries>
+                        </lvc:CartesianChart.Series>
+                    </lvc:CartesianChart>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Testovací okénko!">
+                <Grid>
+                    <TextBlock Text="{Binding StreakValues.Count}"/>
+                    <TextBlock Text="{Binding SuccessRate}" Margin="0, 50,0,0"/>
+                    <TextBlock Text="{Binding FailureRate}"  Margin="0, 100,0,0" />
                 </Grid>
             </TabItem>
 
