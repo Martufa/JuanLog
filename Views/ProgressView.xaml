@@ -32,7 +32,8 @@
 
         <Grid Grid.Row="1" Margin="30,0,30,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -45,12 +46,14 @@
                 </ComboBox.Background>
             </ComboBox>
             <Button Grid.Column="1" Content="Filtruj" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,0" Command="{Binding FilterCommand}" ClipToBounds="True" UseLayoutRounding="False" CommandParameter="{Binding Text, ElementName=SelectedExerciseBox}" BorderBrush="{DynamicResource PinkJuanLogAccent}"/>
+            <Button Grid.Column="2" Content="Zruš filter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,0,5,0" Command="{Binding RemoveFilterCommand}" ClipToBounds="True" UseLayoutRounding="False" CommandParameter="{Binding Text, ElementName=SelectedExerciseBox}" BorderBrush="{DynamicResource PinkJuanLogAccent}"/>
         </Grid>
 
-        <TabControl Grid.Row="2" HorizontalAlignment="Stretch"  Margin="30, 0, 30, 20" VerticalAlignment="Stretch">
+        <TabControl Grid.Row="2" HorizontalAlignment="Stretch"  Margin="30, 20, 30, 20" VerticalAlignment="Stretch" BorderBrush="{DynamicResource PinkJuanLogAccent}">
             <TabItem Header="Tabulka všech cvičení">
                 <DataGrid Name="ProgressTableEntry" Background="{DynamicResource ExtraDarkGreyJuanLog}" ItemsSource="{Binding ExerciseEntries}" AutoGenerateColumns="False" ClipToBounds="True" HorizontalContentAlignment="Stretch" FontSize="14" CanUserAddRows="False">
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Kategorie"  Binding="{Binding ExerciseName}" Width="2*"/>
                         <DataGridTextColumn Header="Cvičení"  Binding="{Binding ExerciseName}" Width="2*"/>
                         <DataGridTextColumn Header="Kdy?" Binding="{Binding When.Date, Converter={StaticResource dateConverter}}" Width="2*"/>
                         <DataGridTextColumn Header="Přidaná váha" Binding="{Binding Weight}" Width="2*"/>
@@ -77,6 +80,7 @@
 
             <TabItem Header="Grafík přidané váhy">
                 <Grid Background="{DynamicResource ExtraDarkGreyJuanLog}" >
+
                     <lvc:CartesianChart Series="{Binding AddedWeight}" Padding="10" >
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="Kolik přidané váhy zvládneš? (kg)" LabelFormatter="{Binding YFormatter}" FontSize="24"></lvc:Axis>
@@ -91,25 +95,24 @@
             <TabItem Header="Heatmapka tvých úspěchů!">
                 <Grid>
                     <lvc:CartesianChart Background="{DynamicResource ExtraDarkGreyJuanLog}">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis ShowLabels="False" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis ShowLabels="False" />
+                        </lvc:CartesianChart.AxisY>
                         <lvc:CartesianChart.Series>
                             <lvc:HeatSeries Values="{Binding StreakValues}"  DataLabels="True">
-                                    <lvc:HeatSeries.GradientStopCollection>
-                                        <GradientStop Offset="0" Color="#FFE5EC"></GradientStop>
-                                        <GradientStop Offset=".25" Color="#FFC2D1"></GradientStop>
-                                        <GradientStop Offset=".50" Color="#FFB3C6"></GradientStop>
-                                        <GradientStop Offset=".75" Color="#FF8FAB"></GradientStop>
-                                        <GradientStop Offset="1" Color="#FB6F92"></GradientStop>
-                                    </lvc:HeatSeries.GradientStopCollection>
-                                </lvc:HeatSeries>
+                                <lvc:HeatSeries.GradientStopCollection>
+                                    <GradientStop Offset="0" Color="#FFE5EC"></GradientStop>
+                                    <GradientStop Offset=".25" Color="#FFC2D1"></GradientStop>
+                                    <GradientStop Offset=".50" Color="#FFB3C6"></GradientStop>
+                                    <GradientStop Offset=".75" Color="#FF8FAB"></GradientStop>
+                                    <GradientStop Offset="1" Color="#FB6F92"></GradientStop>
+                                </lvc:HeatSeries.GradientStopCollection>
+                            </lvc:HeatSeries>
                         </lvc:CartesianChart.Series>
                     </lvc:CartesianChart>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Testovací okénko!">
-                <Grid>
-                    <TextBlock Text="{Binding StreakValues.Count}"/>
-                    <TextBlock Text="{Binding SuccessRate}" Margin="0, 50,0,0"/>
-                    <TextBlock Text="{Binding FailureRate}"  Margin="0, 100,0,0" />
                 </Grid>
             </TabItem>
 

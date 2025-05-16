@@ -1,6 +1,6 @@
 # JuanLog
 
-JuanLog je aplikace urèená specificky pro Juanovo trackování a cvièení.
+JuanLog je aplikace urèená specificky pro Juanovo trackování cvièení. Na základì jeho formátu se naèítá z csv.
 
 ## Funkcionality JuanLogu
 - [x] Juan se mùže registrovat
@@ -13,21 +13,29 @@ JuanLog je aplikace urèená specificky pro Juanovo trackování a cvièení.
 - [x] Juan mùže zobrazit svùj postup v èase na grafu
 - [x] Juan mùže v grafu filtrovat, jaká kategorie v èase ho zajímá
 - [x] Juan má k dispozici heatmapu dní, kdy cvièil/streak
-
-## To-Do JuanLogu
-- [ ] Juan mùže live editovat cvièení
-- [ ] Juan mùže live odstraòovat cvièení
-- [ ] Juanùv graf umí zobrazit poèet cvièení v èase
-- [ ] Juan mùže volit z jednotlivých kategorií (bøicho, záda - csv nepodporuje -> doèasnì vše generické)
-
+- [x] Juan mùže live editovat cvièení
+- [x] Juan mùže live odstraòovat cvièení
+- [x] Juan mùže volit z jednotlivých kategorií (bøicho, záda - csv nepodporuje -> doèasnì vše generické)
 
 ## TO-DO nad rámec
 - [ ] Juan mùže vkládat cvièení o rùzných datech
+- [ ] Juanùv graf umí zobrazit poèet cvièení v èase
 - [ ] Juan je podporován motivaèními citáty
 - [ ] Juanova databáze zpracovává šòùry
 - [ ] Juanùv streak bere v potaz dny odpoèinku a nepenalizuje za nì
+- [ ] Juan si mùže pøidávat vlastní kategorie pro cviky
+- [ ] Juanovo UX je podpoøeno plynulejšími pøechody (napø. boèní navigací)
+- [ ] Juanova heatmapka má fancy labels
+- [ ] Juan se mùže kochat hezkými ikonkami
+- [ ] Juan si mùže sám mìnit barvièky pro interface
+- [ ] Juanovo UX je vylepšeno tím, že pøi editaci nemusí znovu vybírat kategorii a cvièení
+- [ ] Juanova snaha je podpoøena motivaèními citáty namísto pùvodního greeteru! Yay!
 
 ## Done dodatky
-- [x] Promyslet použití secure stringù pøi pøihlašování
-- [x] Promazávat login boxy po pøihlášení XD
+- [x] Zamítnuto: Promyslet použití secure stringù pøi pøihlašování
+- [x] Hotovo: Promazávat login boxy po pøihlášení XD
 - [x] Zamítnuto: Pøekopat databázi, protože ffs XDD -> pøi importu brát jednotlivé sety spíš jako celé entry, bude se s tím líp pracovat
+- [ ] Zakázat ne-matching heslo pøi registraci (check)? kinda annoying
+- [ ] Pøesunout styly do style dictu, což by proèistilo kód
+- [ ] Možná zakázat empty uživatele? ale, to je vìc uživatele
+- [ ] Zlepšit dokumentaci, hehe

@@ -159,6 +159,14 @@ namespace JuanLog.ViewModels
         }
 
         [RelayCommand]
+        public async Task RemoveFiler()
+        {
+            ExerciseEntries = await ExerciseEntry.GetAllUserEntries(ActiveUser);
+            UpdateWeightGraph();
+            MakeHeatMap();
+        }
+
+        [RelayCommand]
         public void ShowEntriesButton()
         {
             MessageBox.Show(ActiveUser.Id.ToString());

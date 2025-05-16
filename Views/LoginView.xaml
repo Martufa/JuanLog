@@ -33,12 +33,13 @@
 
         <ui:Card Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Margin="0, 10, 0, 0" VerticalAlignment="Stretch" Background="#FF1D1E1F" BorderBrush="{DynamicResource PinkJuanLogAccent}" />
         <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Center" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold" Foreground="White" />
+        <Separator Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" BorderBrush="{DynamicResource PinkJuanLogAccent}" Margin="0,0,0,40" BorderThickness="1"/>
 
 
-        <Label Grid.Column="1" Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Uživatelské jméno:" FontSize="16"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Text="Uživatelské jméno:" FontSize="18" FontWeight="Bold" Foreground="White"/>
         <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Juan" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
 
-        <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="25,0,25,0" VerticalAlignment="Top" ClipToBounds="True" Content="Heslo:" FontSize="16"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Text="Heslo:" FontSize="18" FontWeight="Bold" Foreground="White"/>
         <PasswordBox Name="PasswordBox" Grid.Column="1" Grid.Row="3" Margin="25,0,25,0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Password="" VerticalContentAlignment="Center"/>
 
         <Grid Grid.Column="1" Grid.Row="4" Margin="25,0,25,0">

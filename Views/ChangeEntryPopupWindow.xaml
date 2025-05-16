@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JuanLog.Views"
         mc:Ignorable="d"
-        Title="ChangeEntryPopupWindow" Height="450" Width="450">
+        Title="ChangeEntryPopupWindow" Height="530" Width="450">
     <Grid>
         <Grid.Background>
             <RadialGradientBrush SpreadMethod="Pad" MappingMode="RelativeToBoundingBox">
@@ -23,19 +23,23 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
 
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" MinWidth="250" Margin="30 20 30 0" Text="Editace cvičení" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold" Foreground="White"/>
 
-        <Label Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Vyber si cvičení:" FontSize="16"/>
-        <ComboBox Grid.Row="2" Margin="25,0,25,0" VerticalAlignment="Bottom" DisplayMemberPath="ExerciseName" ClipToBounds="True" SelectedItem="{Binding SelectedExercise}" SelectedIndex="0" ItemsSource="{Binding Exercises}" UseLayoutRounding="False"/>
+        <Label Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Vyber si kategorii:" FontSize="16"/>
+        <ComboBox Grid.Row="2" Margin="25,0,25,0" VerticalAlignment="Bottom" DisplayMemberPath="Name" ClipToBounds="True" SelectedItem="{Binding SelectedCategory}" SelectedIndex="0" ItemsSource="{Binding Categories}" UseLayoutRounding="False"/>
+        
+        <Label Grid.Row="3" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Vyber si cvičení:" FontSize="16"/>
+        <ComboBox Grid.Row="3" Margin="25,0,25,0" VerticalAlignment="Bottom" DisplayMemberPath="ExerciseName" ClipToBounds="True" SelectedItem="{Binding SelectedExercise}" SelectedIndex="0" ItemsSource="{Binding Exercises}" UseLayoutRounding="False"/>
 
-        <Label Grid.Row="3" Margin="25,0,25,0" Content="Přidaná váha:" VerticalAlignment="Top" ClipToBounds="True" FontSize="16"/>
-        <TextBox Grid.Row="3" Margin="25,0,25,0" HorizontalAlignment="Stretch" ClipToBounds="True" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Bottom" />
+        <Label Grid.Row="4" Margin="25,0,25,0" Content="Přidaná váha:" VerticalAlignment="Top" ClipToBounds="True" FontSize="16"/>
+        <TextBox Grid.Row="4" Margin="25,0,25,0" HorizontalAlignment="Stretch" ClipToBounds="True" TextWrapping="Wrap" Text="{Binding Weight}" VerticalAlignment="Bottom" />
 
-        <Label Grid.Row="4" Margin="25,0,25,0" Content="Tvoje sety:" ClipToBounds="True" VerticalAlignment="Top" FontSize="16"/>
-        <ItemsControl Grid.Row="4" ClipToBounds="True" VerticalAlignment="Center"  ItemsSource="{Binding Repetitions, UpdateSourceTrigger=PropertyChanged}">
+        <Label Grid.Row="5" Margin="25,0,25,0" Content="Tvoje sety:" ClipToBounds="True" VerticalAlignment="Top" FontSize="16"/>
+        <ItemsControl Grid.Row="5" ClipToBounds="True" VerticalAlignment="Center"  ItemsSource="{Binding Repetitions, UpdateSourceTrigger=PropertyChanged}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -49,7 +53,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Grid Grid.Row="5">
+        <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
@@ -62,7 +66,7 @@
         </Grid>
 
 
-        <Grid Grid.Row="6">
+        <Grid Grid.Row="7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

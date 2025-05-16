@@ -36,6 +36,11 @@ namespace JuanLog.ViewModels
         [ObservableProperty]
         private Exercise _selectedExercise;
 
+        [ObservableProperty]
+        private List<ExerciseCategory> _categories;
+
+        [ObservableProperty]
+        private ExerciseCategory _selectedCategory;
         public AddExerciseViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
@@ -48,8 +53,10 @@ namespace JuanLog.ViewModels
             _repetitions = new ObservableCollection<int>();
             _weight = 0;
             _currentSet = 0;
+            _categories = new List<ExerciseCategory>();
 
             UpdateExercises();
+            UpdateCategories();
         }
 
         [RelayCommand]
@@ -93,12 +100,24 @@ namespace JuanLog.ViewModels
         }
         public ExerciseEntry GetExerciseEntry()
         {
-            return new ExerciseEntry { EntryId=Entry.EntryId, UserId = ActiveUser.Id, ExerciseName = SelectedExercise.ExerciseName, Weight = Weight, When = Entry.When, Sets = Repetitions.Count };
+            return new ExerciseEntry { EntryId=Entry.EntryId, 
+                UserId = ActiveUser.Id, 
+                ExerciseName = SelectedExercise.ExerciseName, 
+                Weight = Weight, 
+                When = Entry.When, 
+                Sets = Repetitions.Count,
+                ExerciseCategory = SelectedCategory.CategoryId,
+            };
         }
 
         private async void UpdateExercises()
         {
             Exercises = await Exercise.GetAllExercises();
+        }
+
+        private async void UpdateCategories()
+        {
+            Categories = await ExerciseCategory.GetAllCategories();
         }
 
         public async void UpdateShownSets()

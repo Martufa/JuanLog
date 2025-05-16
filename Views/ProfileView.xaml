@@ -35,10 +35,9 @@
         </Grid.RowDefinitions>
 
         <ui:Card Grid.Row="1" Grid.Column="1" Grid.RowSpan="6" Margin="0, 10, 0, 0" VerticalAlignment="Stretch" BorderBrush="{DynamicResource PinkJuanLogAccent}" Background="#FF1D1E1F" ></ui:Card>
-
-        <Button Grid.Row="0" Grid.Column="0" Content="Zpět" Margin="30,20,100,10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToHomepageCommandCommand}" FontSize="48" Foreground="White" BorderBrush="{DynamicResource PinkJuanLogAccent}"/>
+        <Button Content="Zpět" Grid.Row="0" Margin="30,30,30,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Command="{Binding ToHomepageCommandCommand}" BorderBrush="{DynamicResource PinkJuanLogAccent}" />
         <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Tvůj profil" VerticalAlignment="Center" Width="244" Foreground="White" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
-        <Separator Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Foreground="{DynamicResource PinkJuanLogAccent}" Margin="0,0,0,30" BorderThickness="1"/>
+        <Separator Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" BorderBrush="{DynamicResource PinkJuanLogAccent}" Margin="0,0,0,30" BorderThickness="1"/>
 
         <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="25,0,25,0" Text="Uživatelské jméno:" VerticalAlignment="Top"  FontSize="16" Foreground="White" FontWeight="Bold"/>
         <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="25,0,25,0" Text="{Binding ActiveUser.Name}" VerticalAlignment="Top" Width="245"  FontSize="16" Foreground="White"/>
