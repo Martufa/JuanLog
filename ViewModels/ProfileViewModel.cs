@@ -73,8 +73,6 @@ namespace JuanLog.ViewModels
         public async Task SaveNewPassword(string newPassword)
         {
             var db = new JuanLogDBContext();
-            MessageBox.Show(ActiveUser.Name);
-            // List<User> matchingUsers = await db.Users.Where(u => u.Id == ActiveUser.Id).ToListAsync();
             try
             { 
                 db.Users.Where(u => u.Id == ActiveUser.Id).First().HashedPassword = User.HashPassword(newPassword);

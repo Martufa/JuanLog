@@ -26,8 +26,6 @@ namespace JuanLog.Views
                 MessageBox.Show("Zadaná hesla se neshodují");
                 return;
             }
-            Debug.WriteLine("Sending registration data from View to VM");
-            MessageBox.Show("Changing");
             var vm = (ProfileViewModel)this.DataContext;
             await vm.SaveNewPassword(NewPasswordBox.Password);
             this.Close();

@@ -62,7 +62,6 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public void ToHomepage()
         {
-            Debug.WriteLine("I want to go home!");
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(ActiveUser));
         }
 

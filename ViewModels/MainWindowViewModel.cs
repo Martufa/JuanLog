@@ -84,6 +84,6 @@ namespace JuanLog.ViewModels
         }
 
         [RelayCommand]
-        public void ToLoginCommand() {Debug.WriteLine("Sending the switch message!"); WeakReferenceMessenger.Default.Send(new ShowLoginViewMessage()); }
+        public void ToLoginCommand() { WeakReferenceMessenger.Default.Send(new ShowLoginViewMessage()); }
     }
 }

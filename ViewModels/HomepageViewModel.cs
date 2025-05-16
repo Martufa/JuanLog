@@ -15,21 +15,16 @@ namespace JuanLog.ViewModels
     [ObservableObject]
     public partial class HomepageViewModel
     {
-        [ObservableProperty]
-        private string _greeter;
-        
+
         [ObservableProperty]
         private User _activeUser; // { get; set; }
         public HomepageViewModel() {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
             {
                 ActiveUser = m.Value as User;
-                Debug.WriteLine("RECEIVED USER!" + m.Value.Name);
-                Greeter = $"Oh, můj bože, {ActiveUser.Name} je zde!\nVítej! Co si přeješ dělat?";
             });
             Debug.WriteLine("Serring default");
             _activeUser = new User{ Name="Nikdo"};
-            _greeter = $"Ahoj! {ActiveUser.Name}! Co si přeješ dělat?";
         }
 
 

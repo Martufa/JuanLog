@@ -40,11 +40,6 @@ namespace JuanLog.ViewModels
 
         public void LogIn(string username, string pwd)
         {
-            Debug.WriteLine(pwd);
-            // var passwordCheck = new JuanLogDBContext();
-
-            // pokud se shoduje
-            // zapiš ho jako aktivního uživatele - ostatní modely ho potřebují (progress, add exercise, import, profile)
             User? activeUser = User.CheckUserPassword(username, pwd);
             if (activeUser == null)
             {
@@ -52,33 +47,12 @@ namespace JuanLog.ViewModels
                 return;
             }
 
-            // a skoč na homepage
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(activeUser));
-        }
-
-
-        [RelayCommand]
-        public void SetUsername()
-        {
-            Username = "JEZUUUU, SLAYYYYY!";
-            Debug.WriteLine("Měli bychom slayovat...");
-        }
-
-        [RelayCommand]
-        public async void GetJuanLogUsers()
-        {
-            User helper = new User();
-            DisplayUser = await helper.GetAllUsers();
-            foreach (User user in DisplayUser)
-            {
-                Debug.WriteLine(user.Name);
-            }
         }
 
         [RelayCommand]
         public void ToRegistrationCommand()
         {
-            Debug.WriteLine("Ok, switch to registration command recieved");
             WeakReferenceMessenger.Default.Send(new ShowRegistrationViewMessage());
         }
 

@@ -14,7 +14,6 @@ namespace JuanLog.ViewModels
 
         public async void Registrate(string username, string pwd)
         {
-            Debug.WriteLine(pwd);
             var db = new JuanLogDBContext();
             string hashedPassword = User.HashPassword(pwd);
 
