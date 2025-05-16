@@ -4,16 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JuanLog.Views"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:viewmodels="clr-namespace:JuanLog.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:HomepageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.Background>
+        <Grid.OpacityMask>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF154852" Offset="0.997"/>
-                <GradientStop Color="#FF9DCFD8" Offset="0"/>
-                <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
+                <GradientStop Color="Black"/>
+                <GradientStop Color="#FF9E3030" Offset="1"/>
             </LinearGradientBrush>
+        </Grid.OpacityMask>
+        <Grid.Background>
+            <RadialGradientBrush SpreadMethod="Pad" MappingMode="RelativeToBoundingBox">
+                <GradientStop Color="#242526" Offset="0"/>
+                <GradientStop Color="#242526" Offset="0.5"/>
+                <GradientStop Color="#461c2c" Offset="3"/>
+            </RadialGradientBrush>
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
@@ -32,34 +39,30 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="97"  TextWrapping="Wrap" Text="JuanLog" VerticalAlignment="Top" Width="356" FontSize="72" FontFamily="Matura MT Script Capitals" TextDecorations="Underline" FontWeight="Bold"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Height="90" TextWrapping="Wrap" Text="{Binding Greeter}" VerticalAlignment="Bottom" FontSize="16"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Text="JuanLog" VerticalAlignment="Top" FontSize="72" FontFamily="Californian FB" TextDecorations="Underline" FontWeight="Bold" Foreground="White">
+            <TextBlock.OpacityMask>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB94949"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </TextBlock.OpacityMask>
+        </TextBlock>
 
-        <Button Content="Importovat data ze souboru" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToImportCommand}" FontSize="16" Margin="0,0,0,5">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Button BorderBrush="{DynamicResource PinkJuanLogAccent}" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToImportCommand}" Margin="0,0,0,5">
+            <TextBlock FontSize="20">Importovat data ze souboru</TextBlock>
         </Button>
-        <Button Content="Přidat cvičení" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToAddExerciseCommand}" FontSize="16" Margin="0,0,0,5">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToAddExerciseCommand}" Margin="0,0,0,5" BorderBrush="{DynamicResource PinkJuanLogAccent}">
+            <TextBlock FontSize="20">Přidat cvičení</TextBlock>
         </Button>
-        <Button Content="Podívat se na svůj progress" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToProgressCommand}" FontSize="16" Margin="0,0,0,5">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
+        <Button Grid.Row="4" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToProgressCommand}" Margin="0,0,0,5" BorderBrush="{DynamicResource PinkJuanLogAccent}">
+            <TextBlock FontSize="20">Podívat se na svůj progress</TextBlock>
         </Button>
-        <Button Content="Můj profil" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToProfileCommand}" FontSize="16" Margin="0,0,0,5">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Button Content="Odhlásit" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToLoginCommand}" FontSize="16">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
+        <ui:Button Grid.Row="5" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToProfileCommand}" Margin="0,0,0,5" BorderBrush="{DynamicResource PinkJuanLogAccent}">
+            <TextBlock FontSize="20">Můj profil</TextBlock>
+        </ui:Button>
+        <ui:Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding ToLoginCommand}" BorderBrush="{DynamicResource PinkJuanLogAccent}">
+            <TextBlock FontSize="20">Odhlásit se</TextBlock>
+        </ui:Button>
 
 
 

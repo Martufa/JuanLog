@@ -2,8 +2,25 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:JuanLog"
+             xmlns:conv="clr-namespace:JuanLog.Converters"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark">
+                    <Color x:Key="ExtraLightBlue">#FF36C0</Color>
+                    <SolidColorBrush x:Key="PinkJuanLogAccent" Color="#FFB52395"/>
+                    <SolidColorBrush x:Key="ExtraDarkGreyJuanLog" Color="#FF1D1E1F"/>
+                    
+                </ui:ThemesDictionary>
+                <ui:ControlsDictionary>
+                    <conv:DateConverter x:Key="dateConverter"/>
+                </ui:ControlsDictionary>
+                
+                
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
+
 </Application>

@@ -14,6 +14,7 @@ using JuanLog.Models;
 using LiveCharts.Wpf;
 using LiveCharts;
 using LiveCharts.Defaults;
+using System.Windows.Data;
 
 namespace JuanLog.ViewModels
 {
@@ -54,13 +55,13 @@ namespace JuanLog.ViewModels
             {
                 ActiveUser = m.Value;
                 updateEntries();
-                makeHeatMap();
+                
             });
             _activeUser = new User();
             _exerciseEntries = new List<ExerciseEntry>();
             _exercises = new List<Exercise>();
             _labels = new List<int>();
-            YFormatter = value => value.ToString("N");
+            YFormatter = value => ((int)value).ToString("D");
             _streakValues = new();
 
             updateEntries();
@@ -72,6 +73,7 @@ namespace JuanLog.ViewModels
         {
             ExerciseEntries = await ExerciseEntry.GetAllUserEntries(ActiveUser);
             updateWeightGraph();
+            makeHeatMap();
         }
 
         private List<DateTime> GetDaysSince(DateTime start)
@@ -100,18 +102,17 @@ namespace JuanLog.ViewModels
             List<DateTime> allDays = GetDaysSince(earliestDate);
             ChartValues<HeatPoint> allHeatPoints = new();
             int row = allDays.Count / 14;
+            // int row = 0;
             int col = 0;
-            foreach (DateTime d in allDays.AsEnumerable().Reverse())
+            foreach (DateTime d in allDays)
             {
                 if (entriesInDays.ContainsKey(d))
                 {
                     allHeatPoints.Add(new HeatPoint() { X = col, Y = row, Weight = entriesInDays[d] });
-                    // SuccessRate++;
                 }
                 else
                 {
                     allHeatPoints.Add(new HeatPoint() { X = col, Y = row, Weight = 0 });
-                    // FailureRate++;
                 }
                 col++;
                 if (col == 15)
@@ -163,6 +164,11 @@ namespace JuanLog.ViewModels
         public void ToHomepageCommand()
         {
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(ActiveUser));
+        }
+
+        public string DateToString(DateTime inputDate)
+        {
+            return inputDate.ToString("MM:dd:yyyy");
         }
     }
 }

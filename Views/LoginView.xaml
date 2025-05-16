@@ -4,22 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:JuanLog.Views"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:viewmodels="clr-namespace:JuanLog.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF154852" Offset="0.997"/>
-                <GradientStop Color="#FF9DCFD8" Offset="0"/>
-                <GradientStop Color="#FE4ECAE2" Offset="0.515"/>
-            </LinearGradientBrush>
+            <RadialGradientBrush SpreadMethod="Pad" MappingMode="RelativeToBoundingBox">
+                <GradientStop Color="#242526" Offset="0"/>
+                <GradientStop Color="#242526" Offset="0.75"/>
+                <GradientStop Color="#461c2c" Offset="3"/>
+            </RadialGradientBrush>
         </Grid.Background>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -27,20 +28,31 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Center" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold"/>
+        <ui:Card Grid.Row="1" Grid.Column="1" Grid.RowSpan="4" Margin="0, 10, 0, 0" VerticalAlignment="Stretch" Background="#FF1D1E1F" BorderBrush="{DynamicResource PinkJuanLogAccent}" />
+        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Přihlášení" VerticalAlignment="Center" FontSize="48" FontFamily="Constantia" TextDecorations="Underline" FontWeight="Bold" Foreground="White" />
 
-        <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Uživatelské jméno:" FontSize="16"/>
-        <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Stretch" Height="25" TextWrapping="Wrap" Text="Juan" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
 
-        <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Heslo:" FontSize="16"/>
-        <PasswordBox Name="PasswordBox" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Center" Password="" VerticalContentAlignment="Center"/>
+        <Label Grid.Column="1" Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Left" VerticalAlignment="Top" ClipToBounds="True" Content="Uživatelské jméno:" FontSize="16"/>
+        <TextBox Name="UsernameBox" Grid.Column="1" Grid.Row="2" Margin="25,0,25,0" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="Juan" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
 
-        <Button Grid.Column="1" Grid.Row="4" Content="Přihlásit" HorizontalAlignment="Right" VerticalAlignment="Top" Click="LogInToVM" Height="25" Width="250" FontSize="16"/>
-        <Button Grid.Column="1" Grid.Row="4" Content="Nemáš účet? Zaregistruj se!" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="250" Command="{Binding ToRegistrationCommandCommand, Mode=OneWay}" FontSize="16" />
+        <Label Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="25,0,25,0" VerticalAlignment="Top" ClipToBounds="True" Content="Heslo:" FontSize="16"/>
+        <PasswordBox Name="PasswordBox" Grid.Column="1" Grid.Row="3" Margin="25,0,25,0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Password="" VerticalContentAlignment="Center"/>
 
+        <Grid Grid.Column="1" Grid.Row="4" Margin="25,0,25,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Nemáš účet? Zaregistruj se!" HorizontalAlignment="Stretch"  VerticalAlignment="Top" Width="250" Command="{Binding ToRegistrationCommandCommand, Mode=OneWay}" FontSize="16"/>
+            <Button Grid.Column="2" Content="Přihlásit"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="LogInToVM" Width="250" FontSize="16"/>
+            
+        </Grid>
+        
+        
 
     </Grid>
 </UserControl>
