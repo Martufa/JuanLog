@@ -23,7 +23,7 @@ namespace JuanLog.Models
         public string ExerciseName { get; set; }
 
         [ForeignKey("ExerciseCategories")]
-        public int CategoryId { get; set; }
+        public int ExerciseCategory { get; set; }
         public DateTime When { get; set; }
         public int Weight { get; set; }
 

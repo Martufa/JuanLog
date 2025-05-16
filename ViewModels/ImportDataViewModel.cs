@@ -64,8 +64,7 @@ namespace JuanLog.ViewModels
                 {
                     allExercises.TryAdd(e.ExerciseName, e);
                 }
-            try
-            {
+
                 foreach (string line in lines)
                 {
                     string[] data = line.Split(';');
@@ -105,7 +104,7 @@ namespace JuanLog.ViewModels
                             }
                         }
                     
-                        ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = exerciseName, Weight = weight, When = date, CategoryId = 0 };
+                        ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = exerciseName, Weight = weight, When = date, ExerciseCategory = 1 };
                         var addedEntry = await db.ExerciseEntries.AddAsync(entry);
                         await db.SaveChangesAsync();
 
@@ -134,11 +133,8 @@ namespace JuanLog.ViewModels
                         await db.SaveChangesAsync();
                     }
                 }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Načítání z csv souboru selhalo. Zkontroluj prosím formát souboru.");
-            }
+            
+
         }
     }
 }

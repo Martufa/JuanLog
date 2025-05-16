@@ -62,8 +62,9 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public async Task AddExerciseEntry()
         {
-            ExerciseEntry addedEntry = await ExerciseEntry.AddEntry(new ExerciseEntry { 
-                UserId = ActiveUser.Id, 
+            ExerciseEntry addedEntry = await ExerciseEntry.AddEntry(new ExerciseEntry {
+                UserId = ActiveUser.Id,
+                ExerciseCategory = 1,
                 ExerciseName = SelectedExercise.ExerciseName,
                 Weight = Weight,
                 When = DateTime.Now,

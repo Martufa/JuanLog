@@ -54,7 +54,7 @@
                         <DataGridTextColumn Header="Cvičení"  Binding="{Binding ExerciseName}" Width="2*"/>
                         <DataGridTextColumn Header="Kdy?" Binding="{Binding When.Date, Converter={StaticResource dateConverter}}" Width="2*"/>
                         <DataGridTextColumn Header="Přidaná váha" Binding="{Binding Weight}" Width="2*"/>
-                        <DataGridTextColumn Header="Počet setů" Binding="{}" Width="2*"/>
+                        <DataGridTextColumn Header="Počet setů" Binding="{Binding Sets}" Width="2*"/>
                         <DataGridTemplateColumn Header="Editovat" Width="*" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -52,7 +52,7 @@ namespace JuanLog.ViewModels
             {
                 ActiveUser = m.Value;
                 UpdateEntries();
-                
+                UpdateShownExercises();
             });
 
             WeakReferenceMessenger.Default.Register<ExerciseEntryChangedMessage>(this, (r, m) =>
@@ -173,7 +173,6 @@ namespace JuanLog.ViewModels
         public void ChangeEntry(ExerciseEntry exerciseEntry)
         {
             var popUp = new ChangeEntryPopupWindow(exerciseEntry);
-            MessageBox.Show(exerciseEntry.EntryId.ToString());
             popUp.Show();
         }
 
@@ -188,11 +187,5 @@ namespace JuanLog.ViewModels
             UpdateEntries();
         }
 
-        public int GetRepCount(ExerciseEntry exerciseEntry)
-        {
-            return ExerciseEntry.GetEntrySets(exerciseEntry).Result.Count();
-        }
-
-        
     }
 }
