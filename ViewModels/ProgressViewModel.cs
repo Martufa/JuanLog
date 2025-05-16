@@ -15,6 +15,9 @@ using LiveCharts.Wpf;
 using LiveCharts;
 using LiveCharts.Defaults;
 using System.Windows.Data;
+using JuanLog.Views;
+using Microsoft.EntityFrameworkCore;
+using static CommunityToolkit.Mvvm.ComponentModel.__Internals.__TaskExtensions.TaskAwaitableWithoutEndValidation;
 
 namespace JuanLog.ViewModels
 {
@@ -42,21 +45,24 @@ namespace JuanLog.ViewModels
         [ObservableProperty]
         private ChartValues<HeatPoint> _streakValues;
 
-        [ObservableProperty]
-        private int _successRate = 0;
-
-        [ObservableProperty]
-        private int _failureRate = 0;
-
         public Func<double, string> YFormatter { get; set; }
         public ProgressViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowProgressMessage>(this, (r, m) =>
             {
                 ActiveUser = m.Value;
-                updateEntries();
+                UpdateEntries();
                 
             });
+
+            WeakReferenceMessenger.Default.Register<ExerciseEntryChangedMessage>(this, (r, m) =>
+            {
+                MessageBox.Show("Shit registered!");
+                UpdateEntryToDb(m.Value);
+                UpdateEntries();
+
+            });
+
             _activeUser = new User();
             _exerciseEntries = new List<ExerciseEntry>();
             _exercises = new List<Exercise>();
@@ -64,16 +70,15 @@ namespace JuanLog.ViewModels
             YFormatter = value => ((int)value).ToString("D");
             _streakValues = new();
 
-            updateEntries();
-            updateExercises();
-            // makeHeatMap();
+            UpdateEntries();
+            UpdateShownExercises();
         }
 
-        private async void updateEntries()
+        private async void UpdateEntries()
         {
             ExerciseEntries = await ExerciseEntry.GetAllUserEntries(ActiveUser);
-            updateWeightGraph();
-            makeHeatMap();
+            UpdateWeightGraph();
+            MakeHeatMap();
         }
 
         private List<DateTime> GetDaysSince(DateTime start)
@@ -82,7 +87,7 @@ namespace JuanLog.ViewModels
                      .Select(offset => start.AddDays(offset))
                      .ToList();
         }
-        public void makeHeatMap()
+        public void MakeHeatMap()
         {
             Dictionary<DateTime, int> entriesInDays = new();
             DateTime earliestDate = DateTime.Now;
@@ -102,7 +107,6 @@ namespace JuanLog.ViewModels
             List<DateTime> allDays = GetDaysSince(earliestDate);
             ChartValues<HeatPoint> allHeatPoints = new();
             int row = allDays.Count / 14;
-            // int row = 0;
             int col = 0;
             foreach (DateTime d in allDays)
             {
@@ -124,7 +128,7 @@ namespace JuanLog.ViewModels
             StreakValues = allHeatPoints;
         }
 
-        private void updateWeightGraph()
+        private void UpdateWeightGraph()
         {
             ColumnSeries graphValues = new();
             graphValues.Values = new ChartValues<int> { };
@@ -136,7 +140,7 @@ namespace JuanLog.ViewModels
             AddedWeight = new() { graphValues };
         }
 
-        private async void updateExercises()
+        private async void UpdateShownExercises()
         {
             Exercises = await Exercise.GetAllExercises();
         }
@@ -150,8 +154,8 @@ namespace JuanLog.ViewModels
             { 
                 ExerciseEntries = ExerciseEntries.Where(e => e.ExerciseName == filterExerciseName).ToList();
             }
-            updateWeightGraph();
-            makeHeatMap();
+            UpdateWeightGraph();
+            MakeHeatMap();
         }
 
         [RelayCommand]
@@ -166,9 +170,29 @@ namespace JuanLog.ViewModels
             WeakReferenceMessenger.Default.Send(new ShowHomepageMessage(ActiveUser));
         }
 
-        public string DateToString(DateTime inputDate)
+        public void ChangeEntry(ExerciseEntry exerciseEntry)
         {
-            return inputDate.ToString("MM:dd:yyyy");
+            var popUp = new ChangeEntryPopupWindow(exerciseEntry);
+            MessageBox.Show(exerciseEntry.EntryId.ToString());
+            popUp.Show();
         }
+
+        public async void RemoveFromDB(ExerciseEntry removeEntry)
+        {
+            await ExerciseEntry.RemoveEntry(removeEntry);
+            UpdateEntries();
+        }
+        public async void UpdateEntryToDb(ExerciseEntry editedEntry)
+        {
+            await ExerciseEntry.UpdateEntry(editedEntry);
+            UpdateEntries();
+        }
+
+        public int GetRepCount(ExerciseEntry exerciseEntry)
+        {
+            return ExerciseEntry.GetEntrySets(exerciseEntry).Result.Count();
+        }
+
+        
     }
 }

@@ -48,12 +48,28 @@
         </Grid>
 
         <TabControl Grid.Row="2" HorizontalAlignment="Stretch"  Margin="30, 0, 30, 20" VerticalAlignment="Stretch">
-            <TabItem Header="Tabulka">
-                <DataGrid Background="{DynamicResource ExtraDarkGreyJuanLog}" ItemsSource="{Binding ExerciseEntries}" AutoGenerateColumns="False" ClipToBounds="True" IsReadOnly="True" HorizontalContentAlignment="Stretch" FontSize="14">
+            <TabItem Header="Tabulka všech cvičení">
+                <DataGrid Name="ProgressTableEntry" Background="{DynamicResource ExtraDarkGreyJuanLog}" ItemsSource="{Binding ExerciseEntries}" AutoGenerateColumns="False" ClipToBounds="True" HorizontalContentAlignment="Stretch" FontSize="14" CanUserAddRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Cvičení"  Binding="{Binding ExerciseName}" Width="*"/>
-                        <DataGridTextColumn Header="Kdy?" Binding="{Binding When.Date, Converter={StaticResource dateConverter}}" Width="*"/>
-                        <DataGridTextColumn Header="Přidaná váha"  Binding="{Binding Weight}" Width="*"/>
+                        <DataGridTextColumn Header="Cvičení"  Binding="{Binding ExerciseName}" Width="2*"/>
+                        <DataGridTextColumn Header="Kdy?" Binding="{Binding When.Date, Converter={StaticResource dateConverter}}" Width="2*"/>
+                        <DataGridTextColumn Header="Přidaná váha" Binding="{Binding Weight}" Width="2*"/>
+                        <DataGridTextColumn Header="Počet setů" Binding="{}" Width="2*"/>
+                        <DataGridTemplateColumn Header="Editovat" Width="*" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Background="{DynamicResource DarkYellowJuanLog}" Content="Edituj" Click="ChangeEntry" HorizontalAlignment="Stretch"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Odstranit" Width="*" >
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Background="{DynamicResource DarkRedJuanLog}" Content="Smaž" Click="DeleteEntry" HorizontalAlignment="Stretch"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 

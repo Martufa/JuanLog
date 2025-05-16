@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using JuanLog.ViewModels;
-using Microsoft.EntityFrameworkCore.Query.Internal;
+
 
 namespace JuanLog.Views
 {
@@ -25,13 +13,24 @@ namespace JuanLog.Views
         public ChangePassword()
         {
             InitializeComponent();
-            DataContext = new ProfileViewModel();
         }
-        private void btnDialogOk_Click(object sender, RoutedEventArgs e)
+
+        public void AbortPasswordChange(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+        public async void ChangePasswordClick(object sender, RoutedEventArgs e)
+        {
+            if (! (NewPasswordControlBox.Password == NewPasswordBox.Password))
+            {
+                MessageBox.Show("Zadaná hesla se neshodují");
+                return;
+            }
             Debug.WriteLine("Sending registration data from View to VM");
+            MessageBox.Show("Changing");
             var vm = (ProfileViewModel)this.DataContext;
-            vm.SaveNewPassword(NewPasswordBox.Text);
+            await vm.SaveNewPassword(NewPasswordBox.Password);
+            this.Close();
         }
     }
 }

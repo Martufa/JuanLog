@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Collections.Concurrent;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using System.Diagnostics;
 
 
 namespace JuanLog.ViewModels
@@ -55,9 +56,7 @@ namespace JuanLog.ViewModels
 
         private async void ProcessCSV(string fileName)
         {
-            // Datum;Šňůra;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;Excercise;Weight (kg);Sets;Reps;Reps;Reps;Reps +;Pozn.;;
-            //try { 
-            string[] lines = File.ReadAllLines(System.IO.Path.ChangeExtension(fileName, ".csv"));
+            string[] lines = File.ReadAllLines(Path.ChangeExtension(fileName, ".csv"));
                 var db = new JuanLogDBContext();
 
                 ConcurrentDictionary<string, Exercise> allExercises = new();
@@ -65,7 +64,8 @@ namespace JuanLog.ViewModels
                 {
                     allExercises.TryAdd(e.ExerciseName, e);
                 }
-
+            try
+            {
                 foreach (string line in lines)
                 {
                     string[] data = line.Split(';');
@@ -95,7 +95,7 @@ namespace JuanLog.ViewModels
                                 db.Exercises.Add(addition);
 
                                 await db.SaveChangesAsync();
-                            } catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                            } catch (DbUpdateException)
                             {
                                 // this exception is thrown if two same keys are being inserted by different threads:
                                 // the primary keys cannot allow for duplicities
@@ -105,11 +105,12 @@ namespace JuanLog.ViewModels
                             }
                         }
                     
-                        ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = exerciseName, Weight = weight, When = date };
+                        ExerciseEntry entry = new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = exerciseName, Weight = weight, When = date, CategoryId = 0 };
                         var addedEntry = await db.ExerciseEntries.AddAsync(entry);
                         await db.SaveChangesAsync();
 
                         var entryId = addedEntry.Property(x => x.EntryId).CurrentValue;
+                        int setCount = 0;
                         for (int rep = 1; rep <= 4; rep++)
                         {
                             string repString = data[7 * i + 3 + rep];
@@ -119,18 +120,25 @@ namespace JuanLog.ViewModels
                             }
                             int currentReps = (int)(float.Parse(repString));
                             db.SetTable.Add(new Set { EntryId = entryId, Repetitions = currentReps });
-
+                            setCount++;
                         }
                         await db.SaveChangesAsync();
 
-
+                        try { 
+                            db.ExerciseEntries.Find(addedEntry.Entity.EntryId).Sets = setCount;
+                        }
+                        catch (Exception)
+                        {
+                            Debug.WriteLine("Newly added entity lost - couldn't add set count");
+                        }
+                        await db.SaveChangesAsync();
                     }
                 }
-            //}
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Načítání z csv souboru selhalo. Zkontroluj prosím formát souboru.");
-            //}
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Načítání z csv souboru selhalo. Zkontroluj prosím formát souboru.");
+            }
         }
     }
 }

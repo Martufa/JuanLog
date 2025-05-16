@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media.Media3D;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -24,16 +25,17 @@ namespace JuanLog.ViewModels
         private List<Exercise> _exercises;
 
         [ObservableProperty]
-        private ObservableCollection<int> _repetitions;
+        private int _weight;
 
         [ObservableProperty]
-        private int _weight;
+        private ObservableCollection<int> _repetitions;
 
         [ObservableProperty]
         private int _currentSet;
 
         [ObservableProperty]
         private Exercise _selectedExercise;
+
         public AddExerciseViewModel()
         {
             WeakReferenceMessenger.Default.Register<ShowHomepageMessage>(this, (r, m) =>
@@ -45,16 +47,9 @@ namespace JuanLog.ViewModels
             _exercises = new List<Exercise>();
             _repetitions = new ObservableCollection<int>();
             _weight = 0;
-            Repetitions.Add(3);
             _currentSet = 0;
 
-            updateExercises();
-            Debug.WriteLine("Aaaa,a");
-        }
-
-        private async void updateExercises()
-        {
-            Exercises = await Exercise.GetAllExercises();
+            UpdateExercises();
         }
 
         [RelayCommand]
@@ -65,24 +60,18 @@ namespace JuanLog.ViewModels
         }
 
         [RelayCommand]
-        public async Task AddExerciseEntry() // Exercise selectedExercise
+        public async Task AddExerciseEntry()
         {
-            
-            var db = new JuanLogDBContext();
-            // zapiš entry
-            var addedEntry = db.ExerciseEntries.Add(new ExerciseEntry { UserId = ActiveUser.Id, ExerciseName = SelectedExercise.ExerciseName, Weight = Weight, When = DateTime.Now });
-            await db.SaveChangesAsync();
+            ExerciseEntry addedEntry = await ExerciseEntry.AddEntry(new ExerciseEntry { 
+                UserId = ActiveUser.Id, 
+                ExerciseName = SelectedExercise.ExerciseName,
+                Weight = Weight,
+                When = DateTime.Now,
+                Sets = Repetitions.Count
+            });
 
-
-            // získej zpátky jeho id
-            var entryId = addedEntry.Property(x => x.EntryId).CurrentValue;
-
-            // vytvoř a zapiš do SetTables všechny repy, které Juan udělal, přiřaď jim jako EntryId to id, co jsi právě vydoloval
-            foreach (int setRepetition in Repetitions)
-            {
-                db.SetTable.Add(new Set { EntryId = entryId, Repetitions = setRepetition });
-                await db.SaveChangesAsync();
-            }
+            Entry.EntryId = addedEntry.EntryId;
+            UpdateSets();
             MessageBox.Show("Úspěšně přidáno do databáze! ^^");
         }
 
@@ -101,5 +90,37 @@ namespace JuanLog.ViewModels
                 Repetitions.RemoveAt(Repetitions.Count - 1);
             }
         }
+        public ExerciseEntry GetExerciseEntry()
+        {
+            return new ExerciseEntry { EntryId=Entry.EntryId, UserId = ActiveUser.Id, ExerciseName = SelectedExercise.ExerciseName, Weight = Weight, When = Entry.When, Sets = Repetitions.Count };
+        }
+
+        private async void UpdateExercises()
+        {
+            Exercises = await Exercise.GetAllExercises();
+        }
+
+        public async void UpdateShownSets()
+        {
+            List<Set> allSets = await ExerciseEntry.GetEntrySets(Entry);
+            ObservableCollection<int> newRepSet = new();
+            foreach (Set set in allSets)
+            {
+                newRepSet.Add(set.Repetitions);
+            }
+            Repetitions = newRepSet;
+        }
+
+        public async void UpdateSets()
+        {
+            await ExerciseEntry.UpdateEntrySets(Entry.EntryId, Repetitions);
+        }
+
+        public async void UpdateSelectedExerciseFromExName(string exerciseName)
+        {
+            SelectedExercise = await Exercise.GetExerciseByName(exerciseName) ?? SelectedExercise;
+        }
+
+        
     }
 }

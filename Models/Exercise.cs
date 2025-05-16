@@ -22,5 +22,11 @@ namespace JuanLog.Models
             var db = new JuanLogDBContext();
             return await db.Exercises.ToListAsync();
         }
+
+        public static async Task<Exercise?> GetExerciseByName(string exerciseName)
+        {
+            var db = new JuanLogDBContext();
+            return await db.Exercises.Where(e => e.ExerciseName == exerciseName).FirstOrDefaultAsync();
+        }
     }
 }

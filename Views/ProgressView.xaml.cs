@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JuanLog.Models;
 using JuanLog.ViewModels;
 
 namespace JuanLog.Views
@@ -25,6 +26,18 @@ namespace JuanLog.Views
         {
             InitializeComponent();
             DataContext = new ProgressViewModel();
+        }
+
+        private void DeleteEntry(object sender, RoutedEventArgs e)
+        {
+            var vm = (ProgressViewModel)this.DataContext;
+            vm.RemoveFromDB((ExerciseEntry)ProgressTableEntry.CurrentItem);            
+        }
+
+        private void ChangeEntry(object sender, RoutedEventArgs e)
+        {
+            var vm = (ProgressViewModel)this.DataContext;
+            vm.ChangeEntry((ExerciseEntry)ProgressTableEntry.CurrentItem);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using JuanLog.Messages;
 using JuanLog.Models;
 using JuanLog.Views;
+using Microsoft.EntityFrameworkCore;
 
 namespace JuanLog.ViewModels
 {
@@ -35,7 +37,6 @@ namespace JuanLog.ViewModels
             });
             _activeUser = new User();
             _numberOfExercises = 0;
-            // updateNumberOfExercises();
         }
         private async void updateNumberOfExercises()
         {
@@ -46,8 +47,9 @@ namespace JuanLog.ViewModels
         [RelayCommand]
         public void ChangePassword()
         {
-            var win2 = new ChangePassword();
-            win2.Show();
+            var popUp = new ChangePassword();
+            popUp.DataContext = this;
+            popUp.Show();
         }
 
         [RelayCommand]
@@ -71,9 +73,17 @@ namespace JuanLog.ViewModels
         public async Task SaveNewPassword(string newPassword)
         {
             var db = new JuanLogDBContext();
-            db.Users.Where(u => u.Id == ActiveUser.Id).First().HashedPassword = User.HashPassword(newPassword);
+            MessageBox.Show(ActiveUser.Name);
+            // List<User> matchingUsers = await db.Users.Where(u => u.Id == ActiveUser.Id).ToListAsync();
+            try
+            { 
+                db.Users.Where(u => u.Id == ActiveUser.Id).First().HashedPassword = User.HashPassword(newPassword);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Změna hesla se nezdařila...");
+            }
             await db.SaveChangesAsync();
-            MessageBox.Show("Heslo změněno úspěšně!");
         }
     }
 }

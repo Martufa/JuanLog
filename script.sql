@@ -22,7 +22,7 @@ CREATE TABLE [dbo].ExerciseCategories(
 )
 GO
 
-
+INSERT INTO [ExerciseCategories] VALUES ('Generické cvièení');
 INSERT INTO [ExerciseCategories] VALUES ('Nohy');
 INSERT INTO [ExerciseCategories] VALUES ('Ruce');
 INSERT INTO [ExerciseCategories] VALUES ('Záda');
@@ -45,10 +45,13 @@ CREATE TABLE [dbo].ExerciseEntries(
 	[EntryId] [int] IDENTITY(1,1) NOT NULL,
 	[UserId] [int] NOT NULL,
 	[ExerciseName] [varchar] (100) NOT NULL,
+	[ExerciseCategory] [int],
 	[When] [Date] NOT NULL,
 	[Weight] [int],
+	[Sets] [int],
 	CONSTRAINT [PK_ExerciseEntries] PRIMARY KEY CLUSTERED ([EntryId] ASC),
 	FOREIGN KEY ([ExerciseName]) REFERENCES Exercises([ExerciseName]),
+	FOREIGN KEY ([ExerciseCategory]) REFERENCES ExerciseCategories([CategoryId]),
 )
 GO
 

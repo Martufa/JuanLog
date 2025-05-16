@@ -11,8 +11,10 @@
                 <ui:ThemesDictionary Theme="Dark">
                     <Color x:Key="ExtraLightBlue">#FF36C0</Color>
                     <SolidColorBrush x:Key="PinkJuanLogAccent" Color="#FFB52395"/>
+                    <SolidColorBrush x:Key="DarkRedJuanLog" Color="#5b1a1b"/>
+                    <SolidColorBrush x:Key="DarkYellowJuanLog" Color="#ce8810"/>
                     <SolidColorBrush x:Key="ExtraDarkGreyJuanLog" Color="#FF1D1E1F"/>
-                    
+                    <FontFamily x:Key="SegoeFluentIcons">pack://application:,,,/;component/Fonts/#Segoe Fluent Icons</FontFamily>
                 </ui:ThemesDictionary>
                 <ui:ControlsDictionary>
                     <conv:DateConverter x:Key="dateConverter"/>

@@ -17,6 +17,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\EditEntryView.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\EditEntryView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Resources\JuanLogIco.ico" />
   </ItemGroup>
 
