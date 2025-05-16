@@ -2,6 +2,14 @@
 
 JuanLog je aplikace urèená specificky pro Juanovo trackování cvièení. Na základì jeho formátu se naèítá z csv.
 
+Juan je defaultním uživatelem, primárnì by mìl mít heslo nastaveno na q nebo w. V Resources je pøiložen soubor JUAN.csv pro testování naèítání Juanových dat ze souboru.
+Juanova data mají formát:
+
+Datum	Šòùra	Excercise	Weight (kg)	Reps	Reps	Reps	Reps +	Pozn.
+
+
+Projekt používá Entity Framework, pro zkrášlení GUI je využito WPF-UI.
+
 ## Funkcionality JuanLogu
 - [x] Juan se mùže registrovat
 - [x] Juan se mùže/musí pøihlásit pro pøístup do aplikace
